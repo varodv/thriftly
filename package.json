@@ -1,5 +1,5 @@
 {
-  "name": "template-ts",
+  "name": "thriftly",
   "type": "module",
   "version": "1.0.0",
   "private": true,
@@ -12,7 +12,7 @@
     "prepare": "husky",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
-    "lint:ci": "pnpm run lint:check --cache --cache-strategy content --cache-location ~/.cache/eslint/template-ts",
+    "lint:ci": "pnpm run lint:check --cache --cache-strategy content --cache-location ~/.cache/eslint/thriftly",
     "build": "tsc --project tsconfig.build.json",
     "test": "vitest run",
     "coverage": "vitest run --coverage"
