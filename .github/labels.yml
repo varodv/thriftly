@@ -1,0 +1,47 @@
+- name: BREAKING CHANGE
+  description: Breaking change
+  color: '#d93f0b'
+
+- name: build
+  description: Build
+  color: '#685738'
+
+- name: chore
+  description: Release
+  color: '#0FB1D1'
+
+- name: ci
+  description: CI
+  color: '#D6EAE2'
+
+- name: docs
+  description: Documentation
+  color: '#0075ca'
+
+- name: feat
+  description: New feature
+  color: '#a2eeef'
+
+- name: fix
+  description: Bug fix
+  color: '#d73a4a'
+
+- name: perf
+  description: Performance improvement
+  color: '#AEDF36'
+
+- name: refactor
+  description: Code refactor
+  color: '#11175C'
+
+- name: revert
+  description: Revert
+  color: '#E2F029'
+
+- name: style
+  description: Code style
+  color: '#785AC7'
+
+- name: test
+  description: Testing
+  color: '#59F7BB'
