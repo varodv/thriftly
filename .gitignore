@@ -1,5 +1,6 @@
 # Dev/Build outputs
-dist
+.next
+next-env.d.ts
 coverage
 
 # Node dependencies

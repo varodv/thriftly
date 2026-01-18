@@ -1,7 +1,7 @@
 {
   "name": "thriftly",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "engines": {
     "node": "^24",
@@ -13,19 +13,33 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "lint:ci": "pnpm run lint:check --cache --cache-strategy content --cache-location ~/.cache/eslint/thriftly",
-    "build": "tsc --project tsconfig.build.json",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
+  "dependencies": {
+    "next": "16.1.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "7.0.1",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.1",
+    "@types/node": "25.0.9",
+    "@types/react": "19.2.8",
+    "@vitejs/plugin-react": "5.1.2",
     "@vitest/coverage-v8": "4.0.17",
     "eslint": "9.39.2",
     "eslint-plugin-format": "1.3.1",
     "husky": "9.1.7",
+    "jsdom": "27.4.0",
     "lint-staged": "16.2.7",
     "typescript": "5.9.3",
     "vite": "7.3.1",
+    "vite-tsconfig-paths": "6.0.4",
     "vitest": "4.0.17"
   },
   "lint-staged": {
