@@ -78,7 +78,8 @@ export function IconInput({ id, className, value, placeholder, onChange }: Props
   }));
 
   const label = useMemo(
-    () => value !== undefined ? options.find(option => option.value === value)?.label : undefined,
+    () =>
+      value !== undefined ? options.find(option => option.value === value)?.label : undefined,
     [value, options],
   );
 
@@ -88,7 +89,7 @@ export function IconInput({ id, className, value, placeholder, onChange }: Props
         <SelectValue placeholder={placeholder}>
           {value !== undefined && (
             <div className="flex items-center gap-2">
-              <Icon className="size-5" name={value} />
+              <Icon name={value} />
               <span>{label ?? value}</span>
             </div>
           )}
@@ -97,7 +98,7 @@ export function IconInput({ id, className, value, placeholder, onChange }: Props
       <SelectContent position="item-aligned">
         {options.map(option => (
           <SelectItem key={option.value} value={option.value}>
-            <Icon className="size-5" name={option.value} />
+            <Icon name={option.value} />
             <span>{option.label}</span>
           </SelectItem>
         ))}

@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@source inline("{bg,text}-{red,orange,amber,yellow,lime}-{50,{100..900..100},950}");
+@source inline("{bg,text}-{green,emerald,teal,cyan,sky}-{50,{100..900..100},950}");
+@source inline("{bg,text}-{blue,indigo,violet,purple,fuchsia}-{50,{100..900..100},950}");
+@source inline("{bg,text}-{pink,rose,slate,gray,zinc}-{50,{100..900..100},950}");
+@source inline("{bg,text}-{neutral,stone}-{50,{100..900..100},950}");
 
 @custom-variant dark (&:is(.dark *));
 
