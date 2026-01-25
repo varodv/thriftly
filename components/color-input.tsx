@@ -43,17 +43,17 @@ export function ColorInput({ id, className, value, placeholder, onChange }: Prop
     ...colorProps,
   }));
 
-  const label = useMemo(
-    () =>
-      value !== undefined ? options.find(option => option.value === value)?.label : undefined,
-    [value, options],
-  );
+  const label = useMemo(() => {
+    if (value) {
+      return options.find(option => option.value === value)?.label;
+    }
+  }, [value, options]);
 
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger id={id} className={cn('w-full', className)}>
         <SelectValue placeholder={placeholder}>
-          {value !== undefined && (
+          {value && (
             <div className="flex items-center gap-2">
               <Color name={value} />
               <span>{label ?? value}</span>

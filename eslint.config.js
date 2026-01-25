@@ -21,6 +21,11 @@ export default antfu(
     },
   },
   {
+    rules: {
+      'ts/strict-boolean-expressions': 'off',
+    },
+  },
+  {
     ignores: ['**/*.json', '**/*.md', 'components/ui/**'],
     rules: {
       'max-len': [

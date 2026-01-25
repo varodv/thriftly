@@ -12,5 +12,5 @@ export function Icon({ className, name, ...props }: Props) {
     .map(part => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
   const Icon = (icons as Record<string, React.ComponentType<LucideProps>>)[iconName];
-  return Icon !== undefined ? <Icon className={cn('size-5', className)} {...props} /> : null;
+  return Icon && <Icon className={cn('size-5', className)} {...props} />;
 }
