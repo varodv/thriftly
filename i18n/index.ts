@@ -1,4 +1,5 @@
 export const MESSAGES = {
+  'category.input.actions.create': 'Add new category',
   'category.dialog.title.create': 'Add category',
   'category.dialog.title.update': 'Edit category',
   'category.dialog.description.create': 'Add a new category to your list',
