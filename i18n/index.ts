@@ -1,1 +1,20 @@
-export const MESSAGES = {};
+export const MESSAGES = {
+  'category.dialog.title.create': 'Add category',
+  'category.dialog.title.update': 'Edit category',
+  'category.dialog.description.create': 'Add a new category to your list',
+  'category.dialog.description.update': 'Edit the details of your category',
+  'category.dialog.fields.name.label': 'Name',
+  'category.dialog.fields.name.placeholder': 'Type name',
+  'category.dialog.fields.name.description': 'e.g. Housing, Food, Utilities, etc.',
+  'category.dialog.fields.name.errors.empty': 'Name is required',
+  'category.dialog.fields.name.errors.repeated': 'Name is repeated',
+  'category.dialog.fields.icon.label': 'Icon',
+  'category.dialog.fields.icon.placeholder': 'Select icon',
+  'category.dialog.fields.icon.errors.empty': 'Icon is required',
+  'category.dialog.fields.color.label': 'Color',
+  'category.dialog.fields.color.placeholder': 'Select color',
+  'category.dialog.fields.color.errors.empty': 'Color is required',
+  'category.dialog.actions.create': 'Add',
+  'category.dialog.actions.update': 'Edit',
+  'category.dialog.actions.cancel': 'Cancel',
+};

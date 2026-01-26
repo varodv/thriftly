@@ -8,6 +8,7 @@ interface Props {
   className?: string;
   value: string | undefined;
   placeholder?: string;
+  required?: boolean;
   onChange?: (value: string | undefined) => void;
 }
 
@@ -70,7 +71,7 @@ const icons = {
   'wallet-minimal': { category: 'finance' },
 };
 
-export function IconInput({ id, className, value, placeholder, onChange }: Props) {
+export function IconInput({ id, className, value, placeholder, required, onChange }: Props) {
   const options = Object.entries(icons).map(([iconName, iconProps]) => ({
     value: iconName,
     label: iconName,
@@ -84,7 +85,7 @@ export function IconInput({ id, className, value, placeholder, onChange }: Props
   }, [value, options]);
 
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={value} required={required} onValueChange={onChange}>
       <SelectTrigger id={id} className={cn('w-full', className)}>
         <SelectValue placeholder={placeholder}>
           {value && (

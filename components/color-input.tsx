@@ -8,6 +8,7 @@ interface Props {
   className?: string;
   value: string | undefined;
   placeholder?: string;
+  required?: boolean;
   onChange?: (value: string | undefined) => void;
 }
 
@@ -36,7 +37,7 @@ const colors = {
   stone: {},
 };
 
-export function ColorInput({ id, className, value, placeholder, onChange }: Props) {
+export function ColorInput({ id, className, value, placeholder, required, onChange }: Props) {
   const options = Object.entries(colors).map(([colorName, colorProps]) => ({
     value: colorName,
     label: colorName,
@@ -50,7 +51,7 @@ export function ColorInput({ id, className, value, placeholder, onChange }: Prop
   }, [value, options]);
 
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={value} required={required} onValueChange={onChange}>
       <SelectTrigger id={id} className={cn('w-full', className)}>
         <SelectValue placeholder={placeholder}>
           {value && (
