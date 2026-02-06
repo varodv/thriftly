@@ -18,4 +18,6 @@ export const MESSAGES = {
   'category.dialog.actions.create': 'Add',
   'category.dialog.actions.update': 'Edit',
   'category.dialog.actions.cancel': 'Cancel',
+
+  'tags.input.options.new': '(new tag)',
 };
