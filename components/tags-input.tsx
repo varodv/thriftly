@@ -73,7 +73,7 @@ export function TagsInput({ id, className, value, placeholder, required, onChang
         />
       </ComboboxChips>
       {!!options.length && (
-        <ComboboxContent anchor={anchor}>
+        <ComboboxContent anchor={anchor} container={anchor}>
           <ComboboxList>
             {(option: string) => (
               <ComboboxItem key={option} className="gap-1" value={option}>
