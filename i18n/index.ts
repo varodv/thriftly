@@ -1,5 +1,5 @@
 export const MESSAGES = {
-  'category.input.actions.create': 'Add new category',
+  'category.input.actions.create': 'New...',
   'category.dialog.title.create': 'Add category',
   'category.dialog.title.update': 'Edit category',
   'category.dialog.description.create': 'Add a new category to your list',
@@ -18,5 +18,5 @@ export const MESSAGES = {
   'category.dialog.actions.create': 'Add',
   'category.dialog.actions.update': 'Edit',
 
-  'tags.input.options.new': '(new tag)',
+  'tags.input.options.new': '(new)',
 };
