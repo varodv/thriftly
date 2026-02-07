@@ -6,15 +6,14 @@ import { ColorInput } from './color-input';
 import { IconInput } from './icon-input';
 import { Button } from './ui/button';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from './ui/drawer';
-import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field';
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from './ui/dialog';
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from './ui/field';
 import { Input } from './ui/input';
 
 interface Props {
@@ -30,7 +29,9 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
   const { categories } = useCategory();
 
   const [name, setName] = useState<string>();
+
   const [icon, setIcon] = useState<string>();
+
   const [color, setColor] = useState<string>();
 
   const nameDirty = useMemo(() => name !== category?.name, [category, name]);
@@ -73,6 +74,12 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
     ].filter(Boolean);
   }, [color]);
 
+  const nameInvalid = useMemo(() => nameDirty && !!nameErrors.length, [nameDirty, nameErrors]);
+
+  const iconInvalid = useMemo(() => iconDirty && !!iconErrors.length, [iconDirty, iconErrors]);
+
+  const colorInvalid = useMemo(() => colorDirty && !!colorErrors.length, [colorDirty, colorErrors]);
+
   const valid = useMemo(
     () => !nameErrors.length && !iconErrors.length && !colorErrors.length,
     [nameErrors, iconErrors, colorErrors],
@@ -98,22 +105,22 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
   }
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
             {category?.id
               ? $t({ id: 'category.dialog.title.update' })
               : $t({ id: 'category.dialog.title.create' })}
-          </DrawerTitle>
-          <DrawerDescription>
+          </DialogTitle>
+          <DialogDescription>
             {category?.id
               ? $t({ id: 'category.dialog.description.update' })
               : $t({ id: 'category.dialog.description.create' })}
-          </DrawerDescription>
-        </DrawerHeader>
-        <FieldGroup className="p-4">
-          <Field data-invalid={nameDirty && !!nameErrors.length}>
+          </DialogDescription>
+        </DialogHeader>
+        <FieldGroup>
+          <Field data-invalid={nameInvalid}>
             <FieldLabel htmlFor="category-name">
               {$t({ id: 'category.dialog.fields.name.label' })}
               <span className="text-destructive">*</span>
@@ -123,11 +130,15 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
               value={name ?? ''}
               placeholder={$t({ id: 'category.dialog.fields.name.placeholder' })}
               required
+              aria-invalid={nameInvalid}
               onChange={event => setName(event.target.value)}
             />
             <FieldError errors={nameDirty ? nameErrors : []} />
+            <FieldDescription>
+              {$t({ id: 'category.dialog.fields.name.description' })}
+            </FieldDescription>
           </Field>
-          <Field data-invalid={iconDirty && !!iconErrors.length}>
+          <Field data-invalid={iconInvalid}>
             <FieldLabel htmlFor="category-icon">
               {$t({ id: 'category.dialog.fields.icon.label' })}
               <span className="text-destructive">*</span>
@@ -141,7 +152,7 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
             />
             <FieldError errors={iconDirty ? iconErrors : []} />
           </Field>
-          <Field data-invalid={colorDirty && !!colorErrors.length}>
+          <Field data-invalid={colorInvalid}>
             <FieldLabel htmlFor="category-color">
               {$t({ id: 'category.dialog.fields.color.label' })}
               <span className="text-destructive">*</span>
@@ -156,17 +167,14 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
             <FieldError errors={colorDirty ? colorErrors : []} />
           </Field>
         </FieldGroup>
-        <DrawerFooter>
+        <DialogFooter className="mt-4">
           <Button disabled={!dirty || !valid} onClick={handleSubmit}>
             {category?.id
               ? $t({ id: 'category.dialog.actions.update' })
               : $t({ id: 'category.dialog.actions.create' })}
           </Button>
-          <DrawerClose asChild>
-            <Button variant="outline">{$t({ id: 'category.dialog.actions.cancel' })}</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
