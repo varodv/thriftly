@@ -148,6 +148,7 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
               value={icon}
               placeholder={$t({ id: 'category.dialog.fields.icon.placeholder' })}
               required
+              ariaInvalid={iconInvalid}
               onChange={setIcon}
             />
             <FieldError errors={iconDirty ? iconErrors : []} />
@@ -162,6 +163,7 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
               value={color}
               placeholder={$t({ id: 'category.dialog.fields.color.placeholder' })}
               required
+              ariaInvalid={colorInvalid}
               onChange={setColor}
             />
             <FieldError errors={colorDirty ? colorErrors : []} />

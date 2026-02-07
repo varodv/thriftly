@@ -9,6 +9,7 @@ interface Props {
   value: string | undefined;
   placeholder?: string;
   required?: boolean;
+  ariaInvalid?: boolean;
   onChange?: (value: string | undefined) => void;
 }
 
@@ -71,7 +72,15 @@ const icons = {
   'wallet-minimal': { category: 'finance' },
 };
 
-export function IconInput({ id, className, value, placeholder, required, onChange }: Props) {
+export function IconInput({
+  id,
+  className,
+  value,
+  placeholder,
+  required,
+  ariaInvalid,
+  onChange,
+}: Props) {
   const options = Object.entries(icons).map(([iconName, iconProps]) => ({
     value: iconName,
     label: iconName,
@@ -86,7 +95,7 @@ export function IconInput({ id, className, value, placeholder, required, onChang
 
   return (
     <Select value={value} required={required} onValueChange={onChange}>
-      <SelectTrigger id={id} className={cn('w-full', className)}>
+      <SelectTrigger id={id} className={cn('w-full', className)} aria-invalid={ariaInvalid}>
         <SelectValue placeholder={placeholder}>
           {value && (
             <div className="flex items-center gap-2">

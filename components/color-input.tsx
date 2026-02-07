@@ -9,6 +9,7 @@ interface Props {
   value: string | undefined;
   placeholder?: string;
   required?: boolean;
+  ariaInvalid?: boolean;
   onChange?: (value: string | undefined) => void;
 }
 
@@ -37,7 +38,15 @@ const colors = {
   stone: {},
 };
 
-export function ColorInput({ id, className, value, placeholder, required, onChange }: Props) {
+export function ColorInput({
+  id,
+  className,
+  value,
+  placeholder,
+  required,
+  ariaInvalid,
+  onChange,
+}: Props) {
   const options = Object.entries(colors).map(([colorName, colorProps]) => ({
     value: colorName,
     label: colorName,
@@ -52,7 +61,7 @@ export function ColorInput({ id, className, value, placeholder, required, onChan
 
   return (
     <Select value={value} required={required} onValueChange={onChange}>
-      <SelectTrigger id={id} className={cn('w-full', className)}>
+      <SelectTrigger id={id} className={cn('w-full', className)} aria-invalid={ariaInvalid}>
         <SelectValue placeholder={placeholder}>
           {value && (
             <div className="flex items-center gap-2">
