@@ -6,7 +6,7 @@ import { useStorage } from './use-storage';
 
 export type Transaction = Entity<{
   amount: number;
-  date: Date;
+  timestamp: number;
   category: Category['id'];
   tags: Array<string>;
 }>;

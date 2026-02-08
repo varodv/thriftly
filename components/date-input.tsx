@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { cn } from '@/lib/utils';
 import { Calendar } from './ui/calendar';
@@ -10,26 +11,57 @@ interface Props {
   value: Date | undefined;
   placeholder?: string;
   required?: boolean;
+  ariaInvalid?: boolean;
   onChange?: (value: Date | undefined) => void;
 }
 
-export function DateInput({ id, className, value, placeholder, required, onChange }: Props) {
+export function DateInput({
+  id,
+  className,
+  value,
+  placeholder,
+  required,
+  ariaInvalid,
+  onChange,
+}: Props) {
   const { formatDate } = useIntl();
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
         <Input
           id={id}
           className={cn('focus-visible:border-input focus-visible:ring-0', className)}
+          value={
+            value
+              ? formatDate(value, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  weekday: 'short',
+                })
+              : ''
+          }
           placeholder={placeholder}
           required={required}
-          value={value ? formatDate(value, { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
+          aria-invalid={ariaInvalid}
           readOnly
         />
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={value} onSelect={onChange} defaultMonth={value} />
+        <Calendar
+          selected={value}
+          mode="single"
+          defaultMonth={value}
+          required={required}
+          weekStartsOn={1}
+          onSelect={(newValue: Date | undefined) => {
+            onChange?.(newValue);
+            setOpen(false);
+          }}
+        />
       </PopoverContent>
     </Popover>
   );

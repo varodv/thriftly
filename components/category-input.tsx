@@ -13,13 +13,22 @@ interface Props {
   value: string | undefined;
   placeholder?: string;
   required?: boolean;
-  onChange?: (value: string | Omit<Category, 'id'> | undefined) => void;
+  ariaInvalid?: boolean;
+  onChange?: (value: string | undefined) => void;
 }
 
-export function CategoryInput({ id, className, value, placeholder, required, onChange }: Props) {
+export function CategoryInput({
+  id,
+  className,
+  value,
+  placeholder,
+  required,
+  ariaInvalid,
+  onChange,
+}: Props) {
   const { $t } = useIntl();
 
-  const { categories } = useCategory();
+  const { categories, createCategory } = useCategory();
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -34,6 +43,7 @@ export function CategoryInput({ id, className, value, placeholder, required, onC
   function handleChange(newValue: string) {
     if (newValue === CREATE_OPTION_VALUE) {
       setDialogOpen(true);
+      onChange?.('');
     }
     else {
       onChange?.(newValue);
@@ -41,14 +51,15 @@ export function CategoryInput({ id, className, value, placeholder, required, onC
   }
 
   function handleDialogSubmit(category: Omit<Category, 'id'>) {
-    onChange?.(category);
+    const { id: newCategoryId } = createCategory(category);
+    onChange?.(newCategoryId);
     setDialogOpen(false);
   }
 
   return (
     <>
       <Select value={value} required={required} onValueChange={handleChange}>
-        <SelectTrigger id={id} className={cn('w-full', className)}>
+        <SelectTrigger id={id} className={cn('w-full', className)} aria-invalid={ariaInvalid}>
           <SelectValue placeholder={placeholder}>
             {value && (
               <div className="flex items-center gap-2">
