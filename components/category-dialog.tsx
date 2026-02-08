@@ -46,11 +46,12 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
   );
 
   const nameErrors = useMemo(() => {
-    const nameEmpty = !name?.trim().length;
+    const trimmedName = name?.trim();
+    const nameEmpty = !trimmedName;
     const nameRepeated
       = !nameEmpty
         && categories.some(
-          currentCategory => currentCategory.name.toLowerCase() === name.trim().toLowerCase(),
+          currentCategory => currentCategory.name.toLowerCase() === trimmedName.toLowerCase(),
         );
     return [
       nameEmpty ? { message: $t({ id: 'category.dialog.fields.name.errors.empty' }) } : undefined,
@@ -61,14 +62,14 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
   }, [categories, name]);
 
   const iconErrors = useMemo(() => {
-    const iconEmpty = !icon?.trim().length;
+    const iconEmpty = !icon;
     return [
       iconEmpty ? { message: $t({ id: 'category.dialog.fields.icon.errors.empty' }) } : undefined,
     ].filter(Boolean);
   }, [icon]);
 
   const colorErrors = useMemo(() => {
-    const colorEmpty = !color?.trim().length;
+    const colorEmpty = !color;
     return [
       colorEmpty ? { message: $t({ id: 'category.dialog.fields.color.errors.empty' }) } : undefined,
     ].filter(Boolean);
@@ -98,8 +99,8 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
       onSubmit({
         id: category?.id,
         name: name!.trim(),
-        icon: icon!.trim(),
-        color: color!.trim(),
+        icon: icon!,
+        color: color!,
       });
     }
   }
