@@ -1,3 +1,5 @@
+'use client';
+
 import type { PropsWithChildren } from 'react';
 import { IntlProvider as ReactIntlProvider } from 'react-intl';
 import { MESSAGES } from '@/i18n';
