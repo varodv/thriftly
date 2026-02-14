@@ -1,4 +1,7 @@
 export const MESSAGES = {
+  'transaction.list.empty': 'No transactions found',
+  'transaction.list.end': 'You made it to the end!',
+
   'transaction.dialog.title.create': 'Add transaction',
   'transaction.dialog.title.update': 'Edit transaction',
   'transaction.dialog.description.create': 'Add a new transaction to your list',

@@ -34,16 +34,7 @@ export function DateInput({
         <Input
           id={id}
           className={cn('focus-visible:border-input focus-visible:ring-0', className)}
-          value={
-            value
-              ? formatDate(value, {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  weekday: 'short',
-                })
-              : ''
-          }
+          value={value ? formatDate(value, { format: 'weekday' }) : ''}
           placeholder={placeholder}
           required={required}
           aria-invalid={ariaInvalid}
