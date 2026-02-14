@@ -1,4 +1,8 @@
 export const MESSAGES = {
+  'date.today': 'Today',
+  'date.yesterday': 'Yesterday',
+  'date.tomorrow': 'Tomorrow',
+
   'transaction.list.empty': 'No transactions found',
   'transaction.list.end': 'You made it to the end!',
 

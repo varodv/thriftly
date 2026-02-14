@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useDate } from '@/hooks/use-date';
 import { cn } from '@/lib/utils';
 import { Calendar } from './ui/calendar';
 import { Input } from './ui/input';
@@ -24,7 +24,7 @@ export function DateInput({
   ariaInvalid,
   onChange,
 }: Props) {
-  const { formatDate } = useIntl();
+  const { formatDate } = useDate();
 
   const [open, setOpen] = useState(false);
 
@@ -34,7 +34,7 @@ export function DateInput({
         <Input
           id={id}
           className={cn('focus-visible:border-input focus-visible:ring-0', className)}
-          value={value ? formatDate(value, { format: 'weekday' }) : ''}
+          value={value ? formatDate(value) : ''}
           placeholder={placeholder}
           required={required}
           aria-invalid={ariaInvalid}

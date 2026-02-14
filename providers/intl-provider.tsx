@@ -12,14 +12,6 @@ export function IntlProvider({ children }: PropsWithChildren) {
         currency: 'EUR',
       },
     },
-    date: {
-      weekday: {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        weekday: 'short',
-      },
-    },
   };
 
   return (

@@ -1,6 +1,7 @@
 import type { Transaction } from '@/hooks/use-transaction';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { useDate } from '@/hooks/use-date';
 import { cn } from '@/lib/utils';
 import { TransactionListGroup } from './transaction-list-group';
 
@@ -13,7 +14,9 @@ interface Props {
 const PAGE_SIZE = 10;
 
 export function TransactionList({ className, transactions, onSelect }: Props) {
-  const { $t, formatDate } = useIntl();
+  const { $t } = useIntl();
+
+  const { formatDate } = useDate();
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
@@ -73,7 +76,7 @@ export function TransactionList({ className, transactions, onSelect }: Props) {
       {visibleGroups.map(group => (
         <TransactionListGroup
           key={group.date.toISOString()}
-          title={formatDate(group.date, { format: 'weekday' })}
+          title={formatDate(group.date)}
           transactions={group.transactions}
           onSelect={onSelect}
         />
