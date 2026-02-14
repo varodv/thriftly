@@ -1,6 +1,7 @@
 import type { Category } from '@/hooks/use-category';
 import { useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { toast } from 'sonner';
 import { useCategory } from '@/hooks/use-category';
 import { cn } from '@/lib/utils';
 import { CategoryDialog } from './category-dialog';
@@ -54,6 +55,7 @@ export function CategoryInput({
     const { id: newCategoryId } = createCategory(category);
     onChange?.(newCategoryId);
     setDialogOpen(false);
+    toast.success($t({ id: 'category.toast.create.success' }));
   }
 
   return (

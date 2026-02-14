@@ -28,9 +28,10 @@ export const MESSAGES = {
   'transaction.dialog.actions.cancel': 'Cancel',
 
   'transaction.toast.create.success': 'Transaction added',
-  'transaction.toast.update.success': 'Transaction updated',
+  'transaction.toast.update.success': 'Transaction edited',
 
   'category.input.actions.create': 'New...',
+
   'category.dialog.title.create': 'Add category',
   'category.dialog.title.update': 'Edit category',
   'category.dialog.description.create': 'Add a new category to your list',
@@ -48,6 +49,8 @@ export const MESSAGES = {
   'category.dialog.fields.color.errors.empty': 'Color is required',
   'category.dialog.actions.create': 'Add',
   'category.dialog.actions.update': 'Edit',
+
+  'category.toast.create.success': 'Category added',
 
   'tags.input.options.new': '(new)',
 };
