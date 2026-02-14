@@ -64,13 +64,6 @@ export function TransactionList({ className, transactions, onSelect }: Props) {
     return () => observer.disconnect();
   }, [transactions.length]);
 
-  if (!transactions.length) {
-    return (
-      <span className="py-8 text-muted-foreground text-center">
-        {$t({ id: 'transaction.list.empty' })}
-      </span>
-    );
-  }
   return (
     <div className={cn('flex flex-col gap-4 overflow-y-auto', className)}>
       {visibleGroups.map(group => (
@@ -85,11 +78,17 @@ export function TransactionList({ className, transactions, onSelect }: Props) {
         ? (
             <div ref={observerTarget} />
           )
-        : (
-            <span className="py-2 text-muted-foreground text-sm text-center">
-              {$t({ id: 'transaction.list.end' })}
-            </span>
-          )}
+        : !transactions.length
+            ? (
+                <span className="py-8 text-muted-foreground text-sm text-center">
+                  {$t({ id: 'transaction.list.empty' })}
+                </span>
+              )
+            : (
+                <span className="py-2 text-muted-foreground text-sm text-center">
+                  {$t({ id: 'transaction.list.end' })}
+                </span>
+              )}
     </div>
   );
 }
