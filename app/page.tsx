@@ -3,12 +3,17 @@
 import type { Transaction } from '@/hooks/use-transaction';
 import { PlusIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { toast } from 'sonner';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
 import { Button } from '@/components/ui/button';
+import { Toaster } from '@/components/ui/sonner';
 import { useTransaction } from '@/hooks/use-transaction';
 
 export default function Page() {
+  const { $t } = useIntl();
+
   const { transactions, createTransaction, updateTransaction } = useTransaction();
 
   const [transactionDialogOpen, setTransactionDialogOpen] = useState(false);
@@ -32,30 +37,35 @@ export default function Page() {
   ) {
     if (transaction.id) {
       updateTransaction(transaction as Transaction);
+      toast.success($t({ id: 'transaction.toast.update.success' }));
     }
     else {
       createTransaction(transaction);
+      toast.success($t({ id: 'transaction.toast.create.success' }));
     }
     setTransactionDialogOpen(false);
   }
 
   return (
-    <main className="flex flex-col gap-4 h-full p-4">
-      <h1 className="self-center text-3xl font-bold">thriftly</h1>
-      <TransactionList
-        className="flex-1"
-        transactions={transactions}
-        onSelect={setSelectedTransaction}
-      />
-      <TransactionDialog
-        open={transactionDialogOpen}
-        transaction={selectedTransaction}
-        onOpenChange={setTransactionDialogOpen}
-        onSubmit={onTransactionDialogSubmit}
-      />
-      <Button className="self-center" size="icon" onClick={() => setTransactionDialogOpen(true)}>
-        <PlusIcon />
-      </Button>
-    </main>
+    <>
+      <main className="flex flex-col gap-4 h-full p-4">
+        <h1 className="self-center text-3xl font-bold">thriftly</h1>
+        <TransactionList
+          className="flex-1"
+          transactions={transactions}
+          onSelect={setSelectedTransaction}
+        />
+        <TransactionDialog
+          open={transactionDialogOpen}
+          transaction={selectedTransaction}
+          onOpenChange={setTransactionDialogOpen}
+          onSubmit={onTransactionDialogSubmit}
+        />
+        <Button className="self-center" size="icon" onClick={() => setTransactionDialogOpen(true)}>
+          <PlusIcon />
+        </Button>
+      </main>
+      <Toaster position="top-center" />
+    </>
   );
 }

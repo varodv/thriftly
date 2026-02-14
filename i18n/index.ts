@@ -27,6 +27,9 @@ export const MESSAGES = {
   'transaction.dialog.actions.update': 'Edit',
   'transaction.dialog.actions.cancel': 'Cancel',
 
+  'transaction.toast.create.success': 'Transaction added',
+  'transaction.toast.update.success': 'Transaction updated',
+
   'category.input.actions.create': 'New...',
   'category.dialog.title.create': 'Add category',
   'category.dialog.title.update': 'Edit category',
