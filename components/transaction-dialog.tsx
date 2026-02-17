@@ -1,5 +1,5 @@
 import type { Transaction } from '@/hooks/use-transaction';
-import { EuroIcon } from 'lucide-react';
+import { EuroIcon, MinusIcon, PlusIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { CategoryInput } from './category-input';
@@ -156,9 +156,11 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
           <Tabs value={type} onValueChange={setType}>
             <TabsList className="w-full">
               <TabsTrigger value={TransactionType.EXPENSE}>
+                <MinusIcon />
                 {$t({ id: 'transaction.dialog.type.expense' })}
               </TabsTrigger>
               <TabsTrigger value={TransactionType.INCOME}>
+                <PlusIcon />
                 {$t({ id: 'transaction.dialog.type.income' })}
               </TabsTrigger>
             </TabsList>

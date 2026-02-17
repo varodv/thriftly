@@ -1,3 +1,4 @@
+import { TagsIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useTransaction } from '@/hooks/use-transaction';
@@ -61,6 +62,7 @@ export function TagsInput({ id, className, value, placeholder, required, onChang
       onInputValueChange={setInputValue}
     >
       <ComboboxChips ref={anchor} className={className}>
+        <TagsIcon className="size-5" />
         <ComboboxValue>
           {value.map(tag => (
             <ComboboxChip key={tag}>{tag}</ComboboxChip>
