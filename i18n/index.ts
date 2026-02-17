@@ -5,8 +5,12 @@ export const MESSAGES = {
 
   'transaction.list.empty': 'No transactions found',
   'transaction.list.end': 'You made it to the end!',
-  'transaction.list.item.update': 'Edit',
-  'transaction.list.item.delete': 'Remove',
+  'transaction.list.item.actions.update': 'Edit',
+  'transaction.list.item.actions.delete': 'Remove',
+  'transaction.delete.dialog.title': 'Remove transaction',
+  'transaction.delete.dialog.description': 'Are you sure you want to remove this transaction?',
+  'transaction.delete.dialog.actions.delete': 'Remove',
+  'transaction.delete.dialog.actions.cancel': 'Cancel',
 
   'transaction.dialog.title.create': 'Add transaction',
   'transaction.dialog.title.update': 'Edit transaction',
