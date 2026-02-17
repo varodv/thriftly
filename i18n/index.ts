@@ -33,7 +33,7 @@ export const MESSAGES = {
   'transaction.toast.update.success': 'Transaction edited',
   'transaction.toast.delete.success': 'Transaction removed',
 
-  'category.input.actions.create': 'New...',
+  'category.input.actions.create': 'New category...',
 
   'category.dialog.title.create': 'Add category',
   'category.dialog.title.update': 'Edit category',
