@@ -7,10 +7,17 @@ interface Props {
   className?: string;
   title: string;
   transactions: Array<Transaction>;
-  onSelect?: (transaction: Transaction) => void;
+  onUpdate?: (transaction: Transaction) => void;
+  onDelete?: (transaction: Transaction) => void;
 }
 
-export function TransactionListGroup({ className, title, transactions, onSelect }: Props) {
+export function TransactionListGroup({
+  className,
+  title,
+  transactions,
+  onUpdate,
+  onDelete,
+}: Props) {
   const income = transactions.reduce((result, transaction) => {
     if (transaction.amount > 0) {
       result += transaction.amount;
@@ -59,7 +66,8 @@ export function TransactionListGroup({ className, title, transactions, onSelect 
         <TransactionListItem
           key={transaction.id}
           transaction={transaction}
-          onClick={() => onSelect?.(transaction)}
+          onUpdate={() => onUpdate?.(transaction)}
+          onDelete={() => onDelete?.(transaction)}
         />
       ))}
     </div>

@@ -5,6 +5,8 @@ export const MESSAGES = {
 
   'transaction.list.empty': 'No transactions found',
   'transaction.list.end': 'You made it to the end!',
+  'transaction.list.item.update': 'Edit',
+  'transaction.list.item.delete': 'Remove',
 
   'transaction.dialog.title.create': 'Add transaction',
   'transaction.dialog.title.update': 'Edit transaction',
@@ -29,6 +31,7 @@ export const MESSAGES = {
 
   'transaction.toast.create.success': 'Transaction added',
   'transaction.toast.update.success': 'Transaction edited',
+  'transaction.toast.delete.success': 'Transaction removed',
 
   'category.input.actions.create': 'New...',
 

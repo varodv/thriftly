@@ -8,12 +8,13 @@ import { TransactionListGroup } from './transaction-list-group';
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
-  onSelect?: (transaction: Transaction) => void;
+  onUpdate?: (transaction: Transaction) => void;
+  onDelete?: (transaction: Transaction) => void;
 }
 
 const PAGE_SIZE = 10;
 
-export function TransactionList({ className, transactions, onSelect }: Props) {
+export function TransactionList({ className, transactions, onUpdate, onDelete }: Props) {
   const { $t } = useIntl();
 
   const { formatDate } = useDate();
@@ -71,7 +72,8 @@ export function TransactionList({ className, transactions, onSelect }: Props) {
           key={group.date.toISOString()}
           title={formatDate(group.date)}
           transactions={group.transactions}
-          onSelect={onSelect}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
         />
       ))}
       {visibleTransactions.length < transactions.length

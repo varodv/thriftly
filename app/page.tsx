@@ -14,7 +14,8 @@ import { useTransaction } from '@/hooks/use-transaction';
 export default function Page() {
   const { $t } = useIntl();
 
-  const { transactions, createTransaction, updateTransaction } = useTransaction();
+  const { transactions, createTransaction, updateTransaction, deleteTransaction }
+    = useTransaction();
 
   const [transactionDialogOpen, setTransactionDialogOpen] = useState(false);
 
@@ -46,6 +47,11 @@ export default function Page() {
     setTransactionDialogOpen(false);
   }
 
+  function onTransactionDelete(transaction: Transaction) {
+    deleteTransaction(transaction.id);
+    toast.success($t({ id: 'transaction.toast.delete.success' }));
+  }
+
   return (
     <>
       <main className="flex flex-col gap-4 h-full p-4">
@@ -53,7 +59,8 @@ export default function Page() {
         <TransactionList
           className="flex-1"
           transactions={transactions}
-          onSelect={setSelectedTransaction}
+          onUpdate={setSelectedTransaction}
+          onDelete={onTransactionDelete}
         />
         <TransactionDialog
           open={transactionDialogOpen}
