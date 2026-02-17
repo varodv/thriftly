@@ -95,9 +95,7 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <AlertDialogTitle>
-              {$t({ id: 'transaction.delete.dialog.title' })}
-            </AlertDialogTitle>
+            <AlertDialogTitle>{$t({ id: 'transaction.delete.dialog.title' })}</AlertDialogTitle>
             <AlertDialogDescription>
               {$t({ id: 'transaction.delete.dialog.description' })}
             </AlertDialogDescription>
@@ -106,10 +104,7 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
             <AlertDialogCancel variant="outline">
               {$t({ id: 'transaction.delete.dialog.actions.cancel' })}
             </AlertDialogCancel>
-            <AlertDialogAction
-              variant="destructive"
-              onClick={() => onDelete?.()}
-            >
+            <AlertDialogAction variant="destructive" onClick={() => onDelete?.()}>
               {$t({ id: 'transaction.delete.dialog.actions.delete' })}
             </AlertDialogAction>
           </AlertDialogFooter>
