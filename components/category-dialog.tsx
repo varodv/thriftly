@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog';
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from './ui/field';
+import { Field, FieldDescription, FieldError, FieldGroup } from './ui/field';
 import { Input } from './ui/input';
 
 interface Props {
@@ -122,12 +122,7 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
         </DialogHeader>
         <FieldGroup>
           <Field data-invalid={nameInvalid}>
-            <FieldLabel htmlFor="category-name">
-              {$t({ id: 'category.dialog.fields.name.label' })}
-              <span className="text-destructive">*</span>
-            </FieldLabel>
             <Input
-              id="category-name"
               value={name ?? ''}
               placeholder={$t({ id: 'category.dialog.fields.name.placeholder' })}
               required
@@ -140,12 +135,7 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
             </FieldDescription>
           </Field>
           <Field data-invalid={iconInvalid}>
-            <FieldLabel htmlFor="category-icon">
-              {$t({ id: 'category.dialog.fields.icon.label' })}
-              <span className="text-destructive">*</span>
-            </FieldLabel>
             <IconInput
-              id="category-icon"
               value={icon}
               placeholder={$t({ id: 'category.dialog.fields.icon.placeholder' })}
               required
@@ -155,12 +145,7 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
             <FieldError errors={iconDirty ? iconErrors : []} />
           </Field>
           <Field data-invalid={colorInvalid}>
-            <FieldLabel htmlFor="category-color">
-              {$t({ id: 'category.dialog.fields.color.label' })}
-              <span className="text-destructive">*</span>
-            </FieldLabel>
             <ColorInput
-              id="category-color"
               value={color}
               placeholder={$t({ id: 'category.dialog.fields.color.placeholder' })}
               required

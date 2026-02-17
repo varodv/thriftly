@@ -60,7 +60,7 @@ export function CategoryInput({
 
   return (
     <>
-      <Select value={value} required={required} onValueChange={handleChange}>
+      <Select value={value ?? ''} required={required} onValueChange={handleChange}>
         <SelectTrigger id={id} className={cn('w-full', className)} aria-invalid={ariaInvalid}>
           <SelectValue placeholder={placeholder}>
             {value && (

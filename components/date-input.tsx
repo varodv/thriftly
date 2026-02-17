@@ -1,8 +1,9 @@
+import { CalendarIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useDate } from '@/hooks/use-date';
 import { cn } from '@/lib/utils';
 import { Calendar } from './ui/calendar';
-import { Input } from './ui/input';
+import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
 interface Props {
@@ -31,15 +32,20 @@ export function DateInput({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
-        <Input
-          id={id}
-          className={cn('focus-visible:border-input focus-visible:ring-0', className)}
-          value={value ? formatDate(value) : ''}
-          placeholder={placeholder}
-          required={required}
-          aria-invalid={ariaInvalid}
-          readOnly
-        />
+        <InputGroup>
+          <InputGroupInput
+            id={id}
+            className={cn('focus-visible:border-input focus-visible:ring-0', className)}
+            value={value ? formatDate(value) : ''}
+            placeholder={placeholder}
+            required={required}
+            aria-invalid={ariaInvalid}
+            readOnly
+          />
+          <InputGroupAddon>
+            <CalendarIcon className="size-5" />
+          </InputGroupAddon>
+        </InputGroup>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar

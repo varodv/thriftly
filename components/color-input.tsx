@@ -66,7 +66,7 @@ export function ColorInput({
           {value && (
             <div className="flex items-center gap-2">
               <Color name={value} />
-              <span>{label ?? value}</span>
+              <span className="capitalize">{label ?? value}</span>
             </div>
           )}
         </SelectValue>
@@ -75,7 +75,7 @@ export function ColorInput({
         {options.map(option => (
           <SelectItem key={option.value} value={option.value}>
             <Color name={option.value} />
-            <span>{option.label}</span>
+            <span className="capitalize">{option.label}</span>
           </SelectItem>
         ))}
       </SelectContent>

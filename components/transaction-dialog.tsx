@@ -15,7 +15,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from './ui/drawer';
-import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field';
+import { Field, FieldError, FieldGroup } from './ui/field';
 import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
 import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
 
@@ -164,13 +164,8 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
             </TabsList>
           </Tabs>
           <Field data-invalid={amountInvalid}>
-            <FieldLabel htmlFor="transaction-amount">
-              {$t({ id: 'transaction.dialog.fields.amount.label' })}
-              <span className="text-destructive">*</span>
-            </FieldLabel>
             <InputGroup>
               <InputGroupInput
-                id="transaction-amount"
                 type="number"
                 value={amount ?? ''}
                 placeholder={$t({ id: 'transaction.dialog.fields.amount.placeholder' })}
@@ -188,12 +183,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
             <FieldError errors={amountDirty ? amountErrors : []} />
           </Field>
           <Field data-invalid={timestampInvalid}>
-            <FieldLabel htmlFor="transaction-timestamp">
-              {$t({ id: 'transaction.dialog.fields.timestamp.label' })}
-              <span className="text-destructive">*</span>
-            </FieldLabel>
             <DateInput
-              id="transaction-timestamp"
               value={timestamp ? new Date(timestamp) : undefined}
               placeholder={$t({ id: 'transaction.dialog.fields.timestamp.placeholder' })}
               required
@@ -203,12 +193,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
             <FieldError errors={timestampDirty ? timestampErrors : []} />
           </Field>
           <Field data-invalid={categoryInvalid}>
-            <FieldLabel htmlFor="transaction-category">
-              {$t({ id: 'transaction.dialog.fields.category.label' })}
-              <span className="text-destructive">*</span>
-            </FieldLabel>
             <CategoryInput
-              id="transaction-category"
               value={category}
               placeholder={$t({ id: 'transaction.dialog.fields.category.placeholder' })}
               required
@@ -218,11 +203,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
             <FieldError errors={categoryDirty ? categoryErrors : []} />
           </Field>
           <Field>
-            <FieldLabel htmlFor="transaction-tags">
-              {$t({ id: 'transaction.dialog.fields.tags.label' })}
-            </FieldLabel>
             <TagsInput
-              id="transaction-tags"
               value={tags}
               placeholder={$t({ id: 'transaction.dialog.fields.tags.placeholder' })}
               required
