@@ -49,15 +49,15 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
         <DropdownMenuTrigger asChild>
           <div
             className={cn(
-              'flex items-center gap-3 p-3 border rounded-lg',
-              'bg-card hover:bg-accent/50 transition-colors cursor-pointer',
-              { 'bg-accent/75': menuOpen },
+              'flex items-center gap-3 p-3 border first:rounded-t-lg last:rounded-b-lg',
+              'bg-accent/50 hover:bg-accent/75 transition-colors cursor-pointer',
+              { 'bg-accent': menuOpen },
               className,
             )}
           >
             <div
               className={cn(
-                'p-2 rounded-full text-white shadow-sm',
+                'p-2 rounded-md text-white shadow-sm',
                 `bg-${category?.color ?? 'neutral'}-500`,
               )}
             >

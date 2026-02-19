@@ -33,24 +33,24 @@ export function TransactionListGroup({
   }, 0);
 
   return (
-    <div className={cn('flex flex-col gap-2', className)}>
+    <div className={cn('flex flex-col', className)}>
       <div
         className={cn(
-          'sticky z-10 top-0 flex items-center gap-3 p-3 border-b',
-          'bg-background/75 backdrop-blur',
+          'sticky z-10 top-0 flex items-center gap-3 p-3',
+          'bg-linear-to-t from-background/50 to-background backdrop-blur-xs',
         )}
       >
         <span className="flex items-center gap-2">
           {title}
           <span className="text-muted-foreground text-xs">
             (
-            {transactions.length}
+            <FormattedNumber value={transactions.length} />
             )
           </span>
         </span>
         <div className="flex gap-2 ml-auto font-bold text-sm">
           {income > 0 && (
-            <span className=" text-green-500">
+            <span className="text-green-500">
               +
               <FormattedNumber value={income} format="currency" />
             </span>
@@ -62,14 +62,16 @@ export function TransactionListGroup({
           )}
         </div>
       </div>
-      {transactions.map(transaction => (
-        <TransactionListItem
-          key={transaction.id}
-          transaction={transaction}
-          onUpdate={() => onUpdate?.(transaction)}
-          onDelete={() => onDelete?.(transaction)}
-        />
-      ))}
+      <div className="flex flex-col">
+        {transactions.map(transaction => (
+          <TransactionListItem
+            key={transaction.id}
+            transaction={transaction}
+            onUpdate={() => onUpdate?.(transaction)}
+            onDelete={() => onDelete?.(transaction)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

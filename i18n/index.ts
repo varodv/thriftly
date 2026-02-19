@@ -3,6 +3,7 @@ export const MESSAGES = {
   'date.yesterday': 'Yesterday',
   'date.tomorrow': 'Tomorrow',
 
+  'transaction.list.count': '{count} transactions',
   'transaction.list.empty': 'No transactions found',
   'transaction.list.end': 'You made it to the end!',
   'transaction.list.item.actions.update': 'Edit',
