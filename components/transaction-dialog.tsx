@@ -152,7 +152,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
               : $t({ id: 'transaction.dialog.description.create' })}
           </DrawerDescription>
         </DrawerHeader>
-        <FieldGroup className="overflow-y-auto p-4">
+        <FieldGroup className="p-4">
           <Tabs value={type} onValueChange={setType}>
             <TabsList className="w-full">
               <TabsTrigger value={TransactionType.EXPENSE}>
