@@ -74,12 +74,14 @@ export function CategoryInput({
           </SelectValue>
         </SelectTrigger>
         <SelectContent position="item-aligned">
-          {categories.map(category => (
-            <SelectItem key={category.id} value={category.id}>
-              <Icon className={`text-${category.color}-500`} name={category.icon} />
-              <span>{category.name}</span>
-            </SelectItem>
-          ))}
+          {categories
+            .sort((categoryA, categoryB) => categoryA.name.localeCompare(categoryB.name))
+            .map(category => (
+              <SelectItem key={category.id} value={category.id}>
+                <Icon className={`text-${category.color}-500`} name={category.icon} />
+                <span>{category.name}</span>
+              </SelectItem>
+            ))}
           <SelectItem value={CREATE_OPTION_VALUE}>
             <Icon name="plus" />
             <span>{$t({ id: 'category.input.actions.create' })}</span>
