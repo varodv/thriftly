@@ -50,7 +50,7 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
                 currentCategory => currentCategory.id === transaction.category,
               );
               const count = filterTransactions(
-                { categories: [transaction.category] },
+                { ...value, categories: [transaction.category] },
                 transactions,
               ).length;
               result.push({
@@ -67,12 +67,12 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
             {
               value: ALL_VALUE,
               label: $t({ id: 'transaction.list.filter.categories.all' }),
-              count: transactions.length,
+              count: filterTransactions({ ...value, categories: [] }, transactions).length,
             },
           ],
         )
         .sort((optionA, optionB) => optionB.count - optionA.count),
-    [transactions, categories],
+    [value, transactions, categories],
   );
 
   const valueOptions = useMemo(() => {

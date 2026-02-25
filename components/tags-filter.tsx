@@ -42,7 +42,7 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
           (result, transaction) => {
             transaction.tags.forEach((tag) => {
               if (!result.some(currentOption => currentOption.value === tag)) {
-                const count = filterTransactions({ tags: [tag] }, transactions).length;
+                const count = filterTransactions({ ...value, tags: [tag] }, transactions).length;
                 result.push({
                   value: tag,
                   label: tag,
@@ -56,12 +56,12 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
             {
               value: ALL_VALUE,
               label: $t({ id: 'transaction.list.filter.tags.all' }),
-              count: transactions.length,
+              count: filterTransactions({ ...value, tags: [] }, transactions).length,
             },
           ],
         )
         .sort((optionA, optionB) => optionB.count - optionA.count),
-    [transactions],
+    [value, transactions],
   );
 
   const valueOptions = useMemo(() => {
