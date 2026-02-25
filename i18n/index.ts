@@ -4,6 +4,9 @@ export const MESSAGES = {
   'date.tomorrow': 'Tomorrow',
 
   'transaction.list.count': '{count} transactions',
+  'transaction.list.count.filtered': '{filtered} of {count} transactions',
+  'transaction.list.filter.categories.all': 'All categories',
+  'transaction.list.filter.tags.all': 'All tags',
   'transaction.list.empty': 'No transactions found',
   'transaction.list.end': 'You made it to the end!',
   'transaction.list.item.actions.update': 'Edit',

@@ -54,7 +54,7 @@ export default function Page() {
 
   return (
     <>
-      <main className="flex flex-col gap-4 h-full p-4">
+      <main className="flex flex-col gap-3 h-full p-4">
         <h1 className="self-center text-3xl font-bold">thriftly</h1>
         <TransactionList
           className="flex-1"

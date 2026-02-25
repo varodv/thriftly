@@ -11,6 +11,11 @@ export type Transaction = Entity<{
   tags: Array<string>;
 }>;
 
+export interface TransactionFilters {
+  categories?: Array<Category['id']>;
+  tags?: Array<string>;
+}
+
 export function useTransaction() {
   const [transactions, setTransactions] = useStorage<Array<Transaction>>(
     'thriftly:transactions',
@@ -33,10 +38,23 @@ export function useTransaction() {
     setTransactions(prev => prev.filter(transaction => transaction.id !== id));
   }, []);
 
+  function filterTransactions(filters: TransactionFilters, array = transactions) {
+    return array.filter((transaction) => {
+      if (filters.categories?.length && !filters.categories.includes(transaction.category)) {
+        return false;
+      }
+      if (filters.tags?.length && !filters.tags.some(tag => transaction.tags.includes(tag))) {
+        return false;
+      }
+      return true;
+    });
+  }
+
   return {
     transactions,
     createTransaction,
     updateTransaction,
     deleteTransaction,
+    filterTransactions,
   };
 }
