@@ -207,6 +207,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
           <Field>
             <TagsInput
               value={tags}
+              category={category}
               placeholder={$t({ id: 'transaction.dialog.fields.tags.placeholder' })}
               required
               onChange={setTags}

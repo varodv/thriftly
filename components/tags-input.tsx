@@ -7,9 +7,12 @@ import {
   ComboboxChip,
   ComboboxChips,
   ComboboxChipsInput,
+  ComboboxCollection,
   ComboboxContent,
+  ComboboxGroup,
   ComboboxItem,
   ComboboxList,
+  ComboboxSeparator,
   ComboboxValue,
   useComboboxAnchor,
 } from './ui/combobox';
@@ -18,12 +21,25 @@ interface Props {
   id?: string;
   className?: string;
   value: Array<string>;
+  category?: string;
   placeholder?: string;
   required?: boolean;
   onChange?: (value: Array<string>) => void;
 }
 
-export function TagsInput({ id, className, value, placeholder, required, onChange }: Props) {
+interface OptionGroup {
+  items: Array<string>;
+}
+
+export function TagsInput({
+  id,
+  className,
+  value,
+  category,
+  placeholder,
+  required,
+  onChange,
+}: Props) {
   const { $t } = useIntl();
   const anchor = useComboboxAnchor();
 
@@ -46,6 +62,36 @@ export function TagsInput({ id, className, value, placeholder, required, onChang
     return result;
   }, [inputValue, existingTags]);
 
+  const groupedOptions = useMemo(
+    () =>
+      options.reduce<Array<OptionGroup>>(
+        (result, option) => {
+          if (
+            category
+            && transactions.some(
+              transaction =>
+                transaction.category === category && transaction.tags.includes(option),
+            )
+          ) {
+            result[0].items.push(option);
+          }
+          else {
+            result[1].items.push(option);
+          }
+          return result;
+        },
+        [
+          {
+            items: [],
+          },
+          {
+            items: [],
+          },
+        ],
+      ),
+    [category, options],
+  );
+
   function isOptionNew(option: string) {
     const trimmedInputValue = inputValue.trim();
     return option === trimmedInputValue && !existingTags.includes(trimmedInputValue);
@@ -55,7 +101,7 @@ export function TagsInput({ id, className, value, placeholder, required, onChang
     <Combobox
       value={value}
       multiple
-      items={options}
+      items={groupedOptions}
       inputValue={inputValue}
       autoHighlight
       onValueChange={onChange}
@@ -77,15 +123,22 @@ export function TagsInput({ id, className, value, placeholder, required, onChang
       {!!options.length && (
         <ComboboxContent anchor={anchor} container={anchor}>
           <ComboboxList>
-            {(option: string) => (
-              <ComboboxItem key={option} className="gap-1" value={option}>
-                {option}
-                {isOptionNew(option) && (
-                  <span className="text-muted-foreground">
-                    {$t({ id: 'tags.input.options.new' })}
-                  </span>
-                )}
-              </ComboboxItem>
+            {(group: OptionGroup, index) => (
+              <ComboboxGroup key={index} items={group.items}>
+                <ComboboxCollection>
+                  {(option: string) => (
+                    <ComboboxItem key={option} className="gap-1" value={option}>
+                      {option}
+                      {isOptionNew(option) && (
+                        <span className="text-muted-foreground">
+                          {$t({ id: 'tags.input.options.new' })}
+                        </span>
+                      )}
+                    </ComboboxItem>
+                  )}
+                </ComboboxCollection>
+                {index < groupedOptions.length - 1 && <ComboboxSeparator />}
+              </ComboboxGroup>
             )}
           </ComboboxList>
         </ComboboxContent>
