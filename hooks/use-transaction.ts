@@ -1,8 +1,8 @@
 import type { Category } from './use-category';
 import type { Entity } from '@/lib/entity';
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
+import { TransactionContext } from '@/context/transaction-context';
 import { createEntity } from '@/lib/entity';
-import { useStorage } from './use-storage';
 
 export type Transaction = Entity<{
   amount: number;
@@ -17,10 +17,7 @@ export interface TransactionFilters {
 }
 
 export function useTransaction() {
-  const [transactions, setTransactions] = useStorage<Array<Transaction>>(
-    'thriftly:transactions',
-    [],
-  );
+  const [transactions, setTransactions] = useContext(TransactionContext);
 
   const createTransaction = useCallback((payload: Omit<Transaction, 'id'>) => {
     const newTransaction = createEntity(payload);

@@ -1,7 +1,7 @@
 import type { Entity } from '@/lib/entity';
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
+import { CategoryContext } from '@/context/category-context';
 import { createEntity } from '@/lib/entity';
-import { useStorage } from './use-storage';
 
 export type Category = Entity<{
   name: string;
@@ -10,7 +10,7 @@ export type Category = Entity<{
 }>;
 
 export function useCategory() {
-  const [categories, setCategories] = useStorage<Array<Category>>('thriftly:categories', []);
+  const [categories, setCategories] = useContext(CategoryContext);
 
   const createCategory = useCallback((payload: Omit<Category, 'id'>) => {
     const newCategory = createEntity(payload);

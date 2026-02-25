@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next';
+import { CategoryProvider } from '@/context/category-context';
+import { TransactionProvider } from '@/context/transaction-context';
 import { IntlProvider } from '@/providers/intl-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import './globals.css';
@@ -19,7 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="h-full">
         <IntlProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <TransactionProvider>
+              <CategoryProvider>{children}</CategoryProvider>
+            </TransactionProvider>
+          </ThemeProvider>
         </IntlProvider>
       </body>
     </html>
