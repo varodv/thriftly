@@ -49,6 +49,7 @@ export const MESSAGES = {
   'category.dialog.fields.name.errors.repeated': 'Name is repeated',
   'category.dialog.fields.icon.placeholder': 'Icon',
   'category.dialog.fields.icon.errors.empty': 'Icon is required',
+  'category.dialog.fields.icon.options.used': 'Already used',
   'category.dialog.fields.color.placeholder': 'Color',
   'category.dialog.fields.color.errors.empty': 'Color is required',
   'category.dialog.fields.color.options.used': 'Already used',
