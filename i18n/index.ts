@@ -51,6 +51,7 @@ export const MESSAGES = {
   'category.dialog.fields.icon.errors.empty': 'Icon is required',
   'category.dialog.fields.color.placeholder': 'Color',
   'category.dialog.fields.color.errors.empty': 'Color is required',
+  'category.dialog.fields.color.options.used': 'Already used',
   'category.dialog.actions.create': 'Add',
   'category.dialog.actions.update': 'Edit',
 

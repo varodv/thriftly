@@ -1,7 +1,19 @@
-import { useMemo } from 'react';
+import type { Category } from '@/hooks/use-category';
+import { Fragment, useMemo } from 'react';
+import { useIntl } from 'react-intl';
+import { useCategory } from '@/hooks/use-category';
 import { cn } from '@/lib/utils';
 import { Color } from './color';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
 interface Props {
   id?: string;
@@ -13,30 +25,41 @@ interface Props {
   onChange?: (value: string | undefined) => void;
 }
 
-const colors = {
-  red: {},
-  orange: {},
-  amber: {},
-  yellow: {},
-  lime: {},
-  green: {},
-  emerald: {},
-  teal: {},
-  cyan: {},
-  sky: {},
-  blue: {},
-  indigo: {},
-  violet: {},
-  purple: {},
-  fuchsia: {},
-  pink: {},
-  rose: {},
-  slate: {},
-  gray: {},
-  zinc: {},
-  neutral: {},
-  stone: {},
-};
+interface Option {
+  value: string;
+  label: string;
+  categories: Array<Category>;
+}
+
+interface OptionGroup {
+  label?: string;
+  items: Array<Option>;
+}
+
+const colors = [
+  'red',
+  'orange',
+  'amber',
+  'yellow',
+  'lime',
+  'green',
+  'emerald',
+  'teal',
+  'cyan',
+  'sky',
+  'blue',
+  'indigo',
+  'violet',
+  'purple',
+  'fuchsia',
+  'pink',
+  'rose',
+  'slate',
+  'gray',
+  'zinc',
+  'neutral',
+  'stone',
+];
 
 export function ColorInput({
   id,
@@ -47,11 +70,44 @@ export function ColorInput({
   ariaInvalid,
   onChange,
 }: Props) {
-  const options = Object.entries(colors).map(([colorName, colorProps]) => ({
-    value: colorName,
-    label: colorName,
-    ...colorProps,
-  }));
+  const { $t } = useIntl();
+
+  const { categories } = useCategory();
+
+  const options = useMemo(
+    () =>
+      colors.map<Option>(color => ({
+        value: color,
+        label: color,
+        categories: categories.filter(category => category.color === color),
+      })),
+    [categories],
+  );
+
+  const groupedOptions = useMemo(
+    () =>
+      options.reduce<Array<OptionGroup>>(
+        (result, option) => {
+          if (!option.categories.length) {
+            result[0].items.push(option);
+          }
+          else {
+            result[1].items.push(option);
+          }
+          return result;
+        },
+        [
+          {
+            items: [],
+          },
+          {
+            label: $t({ id: 'category.dialog.fields.color.options.used' }),
+            items: [],
+          },
+        ],
+      ),
+    [options],
+  );
 
   const label = useMemo(() => {
     if (value) {
@@ -72,11 +128,26 @@ export function ColorInput({
         </SelectValue>
       </SelectTrigger>
       <SelectContent position="item-aligned">
-        {options.map(option => (
-          <SelectItem key={option.value} value={option.value}>
-            <Color name={option.value} />
-            <span className="capitalize">{option.label}</span>
-          </SelectItem>
+        {groupedOptions.map((group, index) => (
+          <Fragment key={index}>
+            <SelectGroup>
+              {group.label && <SelectLabel>{group.label}</SelectLabel>}
+              {group.items.map(option => (
+                <SelectItem key={option.value} value={option.value}>
+                  <Color name={option.value} />
+                  <div className="flex flex-col">
+                    <span className="capitalize">{option.label}</span>
+                    {!!option.categories.length && (
+                      <span className="text-muted-foreground text-xs">
+                        {option.categories.map(category => category.name).join(', ')}
+                      </span>
+                    )}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectGroup>
+            {index < groupedOptions.length - 1 && <SelectSeparator />}
+          </Fragment>
         ))}
       </SelectContent>
     </Select>
