@@ -1,6 +1,7 @@
 import { TagsIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { useCategory } from '@/hooks/use-category';
 import { useTransaction } from '@/hooks/use-transaction';
 import {
   Combobox,
@@ -11,6 +12,7 @@ import {
   ComboboxContent,
   ComboboxGroup,
   ComboboxItem,
+  ComboboxLabel,
   ComboboxList,
   ComboboxSeparator,
   ComboboxValue,
@@ -28,6 +30,7 @@ interface Props {
 }
 
 interface OptionGroup {
+  label?: string;
   items: Array<string>;
 }
 
@@ -44,6 +47,8 @@ export function TagsInput({
   const anchor = useComboboxAnchor();
 
   const { transactions } = useTransaction();
+
+  const { categories } = useCategory();
 
   const [inputValue, setInputValue] = useState('');
 
@@ -74,6 +79,9 @@ export function TagsInput({
             )
           ) {
             result[0].items.push(option);
+            if (!result[1].label) {
+              result[1].label = $t({ id: 'tags.input.options.other' });
+            }
           }
           else {
             result[1].items.push(option);
@@ -82,6 +90,10 @@ export function TagsInput({
         },
         [
           {
+            label: category
+              ? (categories.find(currentCategory => currentCategory.id === category)?.name
+                ?? category)
+              : undefined,
             items: [],
           },
           {
@@ -89,7 +101,7 @@ export function TagsInput({
           },
         ],
       ),
-    [category, options],
+    [category, transactions, categories, options],
   );
 
   function isOptionNew(option: string) {
@@ -125,6 +137,7 @@ export function TagsInput({
           <ComboboxList>
             {(group: OptionGroup, index) => (
               <ComboboxGroup key={index} items={group.items}>
+                {group.label && <ComboboxLabel>{group.label}</ComboboxLabel>}
                 <ComboboxCollection>
                   {(option: string) => (
                     <ComboboxItem key={option} className="gap-1" value={option}>

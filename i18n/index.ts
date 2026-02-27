@@ -59,6 +59,7 @@ export const MESSAGES = {
   'category.toast.create.success': 'Category added',
 
   'tags.input.options.new': '(new)',
+  'tags.input.options.other': 'Other',
 
   'icon.input.options.empty': 'No icons found',
 };
