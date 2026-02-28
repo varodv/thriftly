@@ -98,10 +98,11 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
       observer.observe(observerTarget.current);
     }
     return () => observer.disconnect();
-  }, [transactions.length]);
+  }, []);
 
   useEffect(() => {
     resetScroll();
+    setVisiblePages(1);
   }, [transactions, filters]);
 
   function resetScroll(behavior?: ScrollBehavior) {
@@ -157,17 +158,17 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
             onDelete={onDelete}
           />
         ))}
-        {visibleTransactions.length < filteredTransactions.length
-          ? (
-              <div ref={observerTarget} />
-            )
-          : (
-              <span className="pt-2 pb-8 text-muted-foreground text-sm text-center">
-                {!filteredTransactions.length
-                  ? $t({ id: 'transaction.list.empty' })
-                  : $t({ id: 'transaction.list.end' })}
-              </span>
-            )}
+        <div
+          ref={observerTarget}
+          className={cn({ hidden: visibleTransactions.length === filteredTransactions.length })}
+        />
+        {visibleTransactions.length === filteredTransactions.length && (
+          <span className="pt-2 pb-8 text-muted-foreground text-sm text-center">
+            {!filteredTransactions.length
+              ? $t({ id: 'transaction.list.empty' })
+              : $t({ id: 'transaction.list.end' })}
+          </span>
+        )}
       </div>
     </div>
   );
