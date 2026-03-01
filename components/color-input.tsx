@@ -118,7 +118,7 @@ export function ColorInput({
   }, [value, options]);
 
   return (
-    <Select value={value} required={required} onValueChange={onChange}>
+    <Select value={value ?? ''} required={required} onValueChange={onChange}>
       <SelectTrigger id={id} className={cn('w-full', className)} aria-invalid={ariaInvalid}>
         <SelectValue placeholder={placeholder}>
           {value && (

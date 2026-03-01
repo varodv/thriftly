@@ -93,10 +93,10 @@ export function IconInput({
 
   return (
     <Combobox
-      value={value ?? ''}
+      value={options.find(option => option.value === value) ?? null}
       items={groupedOptions}
       autoHighlight
-      onValueChange={newValue => onChange?.(newValue || undefined)}
+      onValueChange={newValueOption => onChange?.(newValueOption?.value)}
     >
       <div ref={anchor} className={className}>
         <ComboboxInput
@@ -120,7 +120,7 @@ export function IconInput({
               {group.label && <ComboboxLabel>{group.label}</ComboboxLabel>}
               <ComboboxCollection>
                 {(option: Option) => (
-                  <ComboboxItem key={option.value} className="gap-2" value={option.value}>
+                  <ComboboxItem key={option.value} className="gap-2" value={option}>
                     <Icon name={option.value} />
                     <div className="flex flex-col">
                       {option.label}
