@@ -5,6 +5,7 @@ import { PlusIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
+import { BalanceCard } from '@/components/balance-card';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
 import { Button } from '@/components/ui/button';
@@ -56,6 +57,7 @@ export default function Page() {
     <>
       <main className="flex flex-col gap-3 h-full p-4">
         <h1 className="self-center text-3xl font-bold">thriftly</h1>
+        <BalanceCard transactions={transactions} />
         <TransactionList
           className="flex-1"
           transactions={transactions}

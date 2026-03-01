@@ -40,7 +40,7 @@ export function TransactionListGroup({
           'bg-linear-to-t from-background/50 to-background backdrop-blur-xs',
         )}
       >
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2 capitalize">
           {title}
           <span className="text-muted-foreground text-xs">
             (

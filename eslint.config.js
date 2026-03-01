@@ -26,6 +26,9 @@ export default antfu(
     },
   },
   {
+    ignores: ['components/ui/chart.tsx'],
+  },
+  {
     ignores: ['**/*.json', '**/*.md', 'components/ui/**'],
     rules: {
       'max-len': [

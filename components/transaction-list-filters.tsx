@@ -10,7 +10,7 @@ interface Props {
 
 export function TransactionListFilters({ value, transactions, onChange }: Props) {
   return (
-    <div className="flex items-center gap-3 overflow-x-auto p-3">
+    <div className="flex items-center gap-3 overflow-x-auto py-3">
       <CategoriesFilter value={value} transactions={transactions} onChange={onChange} />
       <TagsFilter value={value} transactions={transactions} onChange={onChange} />
     </div>

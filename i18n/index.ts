@@ -1,7 +1,7 @@
 export const MESSAGES = {
-  'date.today': 'Today',
-  'date.yesterday': 'Yesterday',
-  'date.tomorrow': 'Tomorrow',
+  'date.today': 'today',
+  'date.yesterday': 'yesterday',
+  'date.tomorrow': 'tomorrow',
 
   'transaction.list.count': '{count} transactions',
   'transaction.list.count.filtered': '{filtered} of {count} transactions',
@@ -62,4 +62,6 @@ export const MESSAGES = {
   'tags.input.options.other': 'Other',
 
   'icon.input.options.empty': 'No icons found',
+
+  'balance.card.description': 'Since {date}',
 };
