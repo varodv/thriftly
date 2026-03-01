@@ -113,7 +113,7 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
             className={cn('rounded-full', className)}
             variant="outline"
             size="sm"
-            disabled={options.length < 2}
+            disabled={options.length < 3}
           >
             {valueOptions.slice(0, MAX_OPTIONS_TRIGGER).map((option, index) => (
               <div key={option.value} className="flex items-center gap-2">
