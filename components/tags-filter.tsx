@@ -102,7 +102,7 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
             className={cn('rounded-full', className)}
             variant="outline"
             size="sm"
-            disabled={!options.length}
+            disabled={options.length < 2}
           >
             {!!value.tags?.length && <TagsIcon />}
             {valueOptions.slice(0, MAX_OPTIONS_TRIGGER).map((option, index) => (
