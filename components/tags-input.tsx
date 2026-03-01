@@ -69,38 +69,40 @@ export function TagsInput({
 
   const groupedOptions = useMemo(
     () =>
-      options.reduce<Array<OptionGroup>>(
-        (result, option) => {
-          if (
-            category
-            && transactions.some(
-              transaction =>
-                transaction.category === category && transaction.tags.includes(option),
-            )
-          ) {
-            result[0].items.push(option);
-            if (!result[1].label) {
-              result[1].label = $t({ id: 'tags.input.options.other' });
+      options
+        .reduce<Array<OptionGroup>>(
+          (result, option) => {
+            if (
+              category
+              && transactions.some(
+                transaction =>
+                  transaction.category === category && transaction.tags.includes(option),
+              )
+            ) {
+              result[0].items.push(option);
+              if (!result[1].label) {
+                result[1].label = $t({ id: 'tags.input.options.other' });
+              }
             }
-          }
-          else {
-            result[1].items.push(option);
-          }
-          return result;
-        },
-        [
-          {
-            label: category
-              ? (categories.find(currentCategory => currentCategory.id === category)?.name
-                ?? category)
-              : undefined,
-            items: [],
+            else {
+              result[1].items.push(option);
+            }
+            return result;
           },
-          {
-            items: [],
-          },
-        ],
-      ),
+          [
+            {
+              label: category
+                ? (categories.find(currentCategory => currentCategory.id === category)?.name
+                  ?? category)
+                : undefined,
+              items: [],
+            },
+            {
+              items: [],
+            },
+          ],
+        )
+        .filter(group => group.items.length),
     [category, transactions, categories, options],
   );
 

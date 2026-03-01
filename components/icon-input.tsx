@@ -66,26 +66,28 @@ export function IconInput({
 
   const groupedOptions = useMemo(
     () =>
-      options.reduce<Array<OptionGroup>>(
-        (result, option) => {
-          if (!option.categories.length) {
-            result[0].items.push(option);
-          }
-          else {
-            result[1].items.push(option);
-          }
-          return result;
-        },
-        [
-          {
-            items: [],
+      options
+        .reduce<Array<OptionGroup>>(
+          (result, option) => {
+            if (!option.categories.length) {
+              result[0].items.push(option);
+            }
+            else {
+              result[1].items.push(option);
+            }
+            return result;
           },
-          {
-            label: $t({ id: 'category.dialog.fields.icon.options.used' }),
-            items: [],
-          },
-        ],
-      ),
+          [
+            {
+              items: [],
+            },
+            {
+              label: $t({ id: 'category.dialog.fields.icon.options.used' }),
+              items: [],
+            },
+          ],
+        )
+        .filter(group => group.items.length),
     [options],
   );
 
