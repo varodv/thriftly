@@ -59,9 +59,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
   const categoryDirty = useMemo(() => category !== transaction?.category, [transaction, category]);
 
   const tagsDirty = useMemo(
-    () =>
-      tags.length !== (transaction?.tags.length ?? 0)
-      || tags.some(tag => !transaction?.tags.includes(tag)),
+    () => tags.join() !== transaction?.tags.join(),
     [transaction, tags],
   );
 
