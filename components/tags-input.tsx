@@ -72,24 +72,30 @@ export function TagsInput({
       options
         .reduce<Array<OptionGroup>>(
           (result, option) => {
-            if (
+            if (isOptionNew(option)) {
+              result[0].items.push(option);
+            }
+            else if (
               category
               && transactions.some(
                 transaction =>
                   transaction.category === category && transaction.tags.includes(option),
               )
             ) {
-              result[0].items.push(option);
-              if (!result[1].label) {
-                result[1].label = $t({ id: 'tags.input.options.other' });
+              result[1].items.push(option);
+              if (!result[2].label) {
+                result[2].label = $t({ id: 'tags.input.options.other' });
               }
             }
             else {
-              result[1].items.push(option);
+              result[2].items.push(option);
             }
             return result;
           },
           [
+            {
+              items: [],
+            },
             {
               label: category
                 ? (categories.find(currentCategory => currentCategory.id === category)?.name
