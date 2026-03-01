@@ -58,10 +58,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
 
   const categoryDirty = useMemo(() => category !== transaction?.category, [transaction, category]);
 
-  const tagsDirty = useMemo(
-    () => tags.join() !== transaction?.tags.join(),
-    [transaction, tags],
-  );
+  const tagsDirty = useMemo(() => tags.join() !== transaction?.tags.join(), [transaction, tags]);
 
   const dirty = useMemo(
     () => amountDirty || timestampDirty || categoryDirty || tagsDirty,
