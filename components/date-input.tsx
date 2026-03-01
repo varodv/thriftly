@@ -35,7 +35,7 @@ export function DateInput({
         <InputGroup>
           <InputGroupInput
             id={id}
-            className={cn('focus-visible:border-input focus-visible:ring-0', className)}
+            className={cn('capitalize focus-visible:border-input focus-visible:ring-0', className)}
             value={value ? formatDate(value) : ''}
             placeholder={placeholder}
             required={required}
