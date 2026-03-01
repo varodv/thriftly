@@ -94,12 +94,16 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
       multiple
       items={options}
       autoHighlight
-      disabled={!options.length}
       onValueChange={onValueOptionsChange}
     >
       <ComboboxTrigger
         render={(
-          <Button variant="outline" size="sm" className={cn('rounded-full', className)}>
+          <Button
+            className={cn('rounded-full', className)}
+            variant="outline"
+            size="sm"
+            disabled={!options.length}
+          >
             {!!value.tags?.length && <TagsIcon />}
             {valueOptions.slice(0, MAX_OPTIONS_TRIGGER).map((option, index) => (
               <span key={option.value}>

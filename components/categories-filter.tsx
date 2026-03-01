@@ -105,12 +105,16 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
       multiple
       items={options}
       autoHighlight
-      disabled={!options.length}
       onValueChange={onValueOptionsChange}
     >
       <ComboboxTrigger
         render={(
-          <Button variant="outline" size="sm" className={cn('rounded-full', className)}>
+          <Button
+            className={cn('rounded-full', className)}
+            variant="outline"
+            size="sm"
+            disabled={!options.length}
+          >
             {valueOptions.slice(0, MAX_OPTIONS_TRIGGER).map((option, index) => (
               <div key={option.value} className="flex items-center gap-2">
                 {option.icon && <Icon className={`text-${option.color}-500`} name={option.icon} />}
