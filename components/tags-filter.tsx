@@ -74,7 +74,7 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
   function onValueOptionsChange(newValueOptions: Array<Option>) {
     if (
       newValueOptions[newValueOptions.length - 1]?.value === ALL_VALUE
-      || newValueOptions.length === options.length - 1
+      || newValueOptions.filter(option => option.value !== ALL_VALUE).length === options.length - 1
     ) {
       onChange?.({ ...value, tags: [] });
     }
