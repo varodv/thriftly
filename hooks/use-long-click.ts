@@ -7,11 +7,7 @@ interface Props {
   onLongClick?: (event: MouseEvent | TouchEvent) => void;
 }
 
-export function useLongClick({
-  threshold = 500,
-  onClick,
-  onLongClick,
-}: Props) {
+export function useLongClick({ threshold = 500, onClick, onLongClick }: Props) {
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const isLongClickRef = useRef(false);
