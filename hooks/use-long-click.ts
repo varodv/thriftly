@@ -15,6 +15,7 @@ export function useLongClick({
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const isLongClickRef = useRef(false);
+  const isScrollingRef = useRef(false);
 
   function onMouseDown(event: MouseEvent | TouchEvent) {
     start(event);
@@ -22,6 +23,7 @@ export function useLongClick({
 
   function start(event: MouseEvent | TouchEvent) {
     isLongClickRef.current = false;
+    isScrollingRef.current = false;
     timerRef.current = setTimeout(() => {
       isLongClickRef.current = true;
       onLongClick?.(event);
@@ -30,7 +32,7 @@ export function useLongClick({
 
   function onMouseUp(event: MouseEvent | TouchEvent) {
     cancel();
-    if (!isLongClickRef.current) {
+    if (!isLongClickRef.current && !isScrollingRef.current) {
       onClick?.(event);
     }
   }
@@ -46,6 +48,11 @@ export function useLongClick({
     cancel();
   }
 
+  function onTouchMove() {
+    cancel();
+    isScrollingRef.current = true;
+  }
+
   function stopPropagation(event: MouseEvent | TouchEvent) {
     event.stopPropagation();
   }
@@ -56,12 +63,14 @@ export function useLongClick({
     onMouseLeave,
     onTouchStart: onMouseDown,
     onTouchEnd: onMouseUp,
+    onTouchMove,
     stopPropagationHandlers: {
       onMouseDown: stopPropagation,
       onMouseUp: stopPropagation,
       onMouseLeave: stopPropagation,
       onTouchStart: stopPropagation,
       onTouchEnd: stopPropagation,
+      onTouchMove: stopPropagation,
     },
   };
 }
