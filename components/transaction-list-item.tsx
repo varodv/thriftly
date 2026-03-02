@@ -85,7 +85,7 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
         </span>
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger asChild>
-            <div className="absolute bottom-0 left-0 w-full" />
+            <div className="absolute bottom-0 left-0 w-full h-full pointer-events-none" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="min-w-40">
             <DropdownMenuItem
