@@ -68,15 +68,17 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
         >
           <Icon className="size-5" name={category?.icon ?? 'circle-question-mark'} />
         </div>
-        <div className="flex flex-col">
+        <div className="overflow-hidden flex flex-col">
           <span className="font-medium">{category?.name ?? transaction.category}</span>
           {transaction.tags.length > 0 && (
-            <span className="text-muted-foreground text-xs">{transaction.tags.join(', ')}</span>
+            <span className="text-muted-foreground text-xs truncate">
+              {transaction.tags.join(', ')}
+            </span>
           )}
         </div>
         <span
           className={cn(
-            'ml-auto font-bold',
+            'shrink-0 ml-auto font-bold',
             transaction.amount > 0 ? 'text-green-500' : 'text-red-500',
           )}
         >
@@ -118,9 +120,7 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <AlertDialogTitle>
-              {$t({ id: 'transaction.delete.dialog.title' })}
-            </AlertDialogTitle>
+            <AlertDialogTitle>{$t({ id: 'transaction.delete.dialog.title' })}</AlertDialogTitle>
             <AlertDialogDescription>
               {$t({ id: 'transaction.delete.dialog.description' })}
             </AlertDialogDescription>
