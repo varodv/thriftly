@@ -147,78 +147,80 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
               : $t({ id: 'transaction.dialog.description.create' })}
           </DrawerDescription>
         </DrawerHeader>
-        <FieldGroup className="p-4">
-          <Tabs value={type} onValueChange={setType}>
-            <TabsList className="w-full">
-              <TabsTrigger value={TransactionType.EXPENSE}>
-                <MinusIcon />
-                {$t({ id: 'transaction.dialog.type.expense' })}
-              </TabsTrigger>
-              <TabsTrigger value={TransactionType.INCOME}>
-                <PlusIcon />
-                {$t({ id: 'transaction.dialog.type.income' })}
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-          <Field data-invalid={amountInvalid}>
-            <InputGroup>
-              <InputGroupInput
-                type="number"
-                value={amount ?? ''}
-                placeholder={$t({ id: 'transaction.dialog.fields.amount.placeholder' })}
+        <div className="flex flex-col flex-1 overflow-auto">
+          <FieldGroup className="p-4">
+            <Tabs value={type} onValueChange={setType}>
+              <TabsList className="w-full">
+                <TabsTrigger value={TransactionType.EXPENSE}>
+                  <MinusIcon />
+                  {$t({ id: 'transaction.dialog.type.expense' })}
+                </TabsTrigger>
+                <TabsTrigger value={TransactionType.INCOME}>
+                  <PlusIcon />
+                  {$t({ id: 'transaction.dialog.type.income' })}
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <Field data-invalid={amountInvalid}>
+              <InputGroup>
+                <InputGroupInput
+                  type="number"
+                  value={amount ?? ''}
+                  placeholder={$t({ id: 'transaction.dialog.fields.amount.placeholder' })}
+                  required
+                  aria-invalid={amountInvalid}
+                  onChange={(event) => {
+                    const newValue = event.target.value;
+                    setAmount(newValue !== '' ? Number(newValue) : undefined);
+                  }}
+                />
+                <InputGroupAddon>
+                  <EuroIcon className="size-5" />
+                </InputGroupAddon>
+              </InputGroup>
+              <FieldError errors={amountDirty ? amountErrors : []} />
+            </Field>
+            <Field data-invalid={timestampInvalid}>
+              <DateInput
+                value={timestamp ? new Date(timestamp) : undefined}
+                placeholder={$t({ id: 'transaction.dialog.fields.timestamp.placeholder' })}
                 required
-                aria-invalid={amountInvalid}
-                onChange={(event) => {
-                  const newValue = event.target.value;
-                  setAmount(newValue !== '' ? Number(newValue) : undefined);
-                }}
+                ariaInvalid={timestampInvalid}
+                onChange={date => setTimestamp(date?.getTime())}
               />
-              <InputGroupAddon>
-                <EuroIcon className="size-5" />
-              </InputGroupAddon>
-            </InputGroup>
-            <FieldError errors={amountDirty ? amountErrors : []} />
-          </Field>
-          <Field data-invalid={timestampInvalid}>
-            <DateInput
-              value={timestamp ? new Date(timestamp) : undefined}
-              placeholder={$t({ id: 'transaction.dialog.fields.timestamp.placeholder' })}
-              required
-              ariaInvalid={timestampInvalid}
-              onChange={date => setTimestamp(date?.getTime())}
-            />
-            <FieldError errors={timestampDirty ? timestampErrors : []} />
-          </Field>
-          <Field data-invalid={categoryInvalid}>
-            <CategoryInput
-              value={category}
-              placeholder={$t({ id: 'transaction.dialog.fields.category.placeholder' })}
-              required
-              ariaInvalid={categoryInvalid}
-              onChange={setCategory}
-            />
-            <FieldError errors={categoryDirty ? categoryErrors : []} />
-          </Field>
-          <Field>
-            <TagsInput
-              value={tags}
-              category={category}
-              placeholder={$t({ id: 'transaction.dialog.fields.tags.placeholder' })}
-              required
-              onChange={setTags}
-            />
-          </Field>
-        </FieldGroup>
-        <DrawerFooter>
-          <Button disabled={!dirty || !valid} onClick={handleSubmit}>
-            {transaction?.id
-              ? $t({ id: 'transaction.dialog.actions.update' })
-              : $t({ id: 'transaction.dialog.actions.create' })}
-          </Button>
-          <DrawerClose asChild>
-            <Button variant="outline">{$t({ id: 'transaction.dialog.actions.cancel' })}</Button>
-          </DrawerClose>
-        </DrawerFooter>
+              <FieldError errors={timestampDirty ? timestampErrors : []} />
+            </Field>
+            <Field data-invalid={categoryInvalid}>
+              <CategoryInput
+                value={category}
+                placeholder={$t({ id: 'transaction.dialog.fields.category.placeholder' })}
+                required
+                ariaInvalid={categoryInvalid}
+                onChange={setCategory}
+              />
+              <FieldError errors={categoryDirty ? categoryErrors : []} />
+            </Field>
+            <Field>
+              <TagsInput
+                value={tags}
+                category={category}
+                placeholder={$t({ id: 'transaction.dialog.fields.tags.placeholder' })}
+                required
+                onChange={setTags}
+              />
+            </Field>
+          </FieldGroup>
+          <DrawerFooter>
+            <Button disabled={!dirty || !valid} onClick={handleSubmit}>
+              {transaction?.id
+                ? $t({ id: 'transaction.dialog.actions.update' })
+                : $t({ id: 'transaction.dialog.actions.create' })}
+            </Button>
+            <DrawerClose asChild>
+              <Button variant="outline">{$t({ id: 'transaction.dialog.actions.cancel' })}</Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </div>
       </DrawerContent>
     </Drawer>
   );
