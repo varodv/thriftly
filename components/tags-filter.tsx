@@ -1,6 +1,6 @@
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
 import { TagsIcon } from 'lucide-react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useTransaction } from '@/hooks/use-transaction';
 import { cn } from '@/lib/utils';
@@ -68,7 +68,7 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
     if (!value.tags?.length || value.tags.length === options.length - 1) {
       return [options[0]];
     }
-    return value.tags.map(tag => options.find(option => option.value === tag)!);
+    return value.tags.map(tag => options.find(option => option.value === tag)!).filter(Boolean);
   }, [value.tags, options]);
 
   function onValueOptionsChange(newValueOptions: Array<Option>) {
@@ -87,6 +87,15 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
       });
     }
   }
+
+  useEffect(() => {
+    if (value.tags?.some(tag => !options.some(option => option.value === tag))) {
+      onChange?.({
+        ...value,
+        tags: value.tags?.filter(tag => options.some(option => option.value === tag)),
+      });
+    }
+  }, [options]);
 
   return (
     <Combobox
