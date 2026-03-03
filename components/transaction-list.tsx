@@ -39,6 +39,7 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
   const visibleTransactions = useMemo(
     () =>
       filteredTransactions
+        .reverse()
         .sort((transactionA, transactionB) => transactionB.timestamp - transactionA.timestamp)
         .slice(0, visiblePages * PAGE_SIZE),
     [filteredTransactions, visiblePages],
