@@ -148,7 +148,7 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
           </div>
         </div>
       )}
-      <div ref={listRef} className="flex flex-col flex-1 gap-6 overflow-y-auto">
+      <div ref={listRef} className="flex flex-col flex-1 gap-6 overflow-y-auto px-4 -mx-4">
         {visibleGroups.map(group => (
           <TransactionListGroup
             key={group.date.toISOString()}

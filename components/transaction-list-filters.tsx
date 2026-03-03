@@ -1,16 +1,18 @@
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
+import { cn } from '@/lib/utils';
 import { CategoriesFilter } from './categories-filter';
 import { TagsFilter } from './tags-filter';
 
 interface Props {
+  className?: string;
   value: TransactionFilters;
   transactions: Array<Transaction>;
   onChange?: (value: TransactionFilters) => void;
 }
 
-export function TransactionListFilters({ value, transactions, onChange }: Props) {
+export function TransactionListFilters({ className, value, transactions, onChange }: Props) {
   return (
-    <div className="flex items-center gap-3 overflow-x-auto py-3">
+    <div className={cn('flex items-center gap-3 overflow-x-auto py-3', className)}>
       <CategoriesFilter value={value} transactions={transactions} onChange={onChange} />
       <TagsFilter value={value} transactions={transactions} onChange={onChange} />
     </div>

@@ -55,11 +55,13 @@ export default function Page() {
 
   return (
     <>
-      <main className="flex flex-col gap-3 h-full p-4">
-        <h1 className="self-center text-3xl font-bold">thriftly</h1>
-        <BalanceCard transactions={transactions} />
+      <main className="flex flex-col gap-3 h-full py-4">
+        <div className="flex items-center justify-between mx-4">
+          <h1 className="mx-auto text-3xl font-bold">thriftly</h1>
+        </div>
+        <BalanceCard className="mx-4" transactions={transactions} />
         <TransactionList
-          className="flex-1"
+          className="flex-1 px-4"
           transactions={transactions}
           onUpdate={setSelectedTransaction}
           onDelete={onTransactionDelete}
@@ -70,9 +72,11 @@ export default function Page() {
           onOpenChange={setTransactionDialogOpen}
           onSubmit={onTransactionDialogSubmit}
         />
-        <Button className="self-center" size="icon" onClick={() => setTransactionDialogOpen(true)}>
-          <PlusIcon />
-        </Button>
+        <div className="flex items-center justify-between mx-4">
+          <Button className="mx-auto" size="icon" onClick={() => setTransactionDialogOpen(true)}>
+            <PlusIcon />
+          </Button>
+        </div>
       </main>
       <Toaster position="top-center" />
     </>
