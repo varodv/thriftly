@@ -163,13 +163,22 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
           ref={observerTarget}
           className={cn({ hidden: visibleTransactions.length === filteredTransactions.length })}
         />
-        {visibleTransactions.length === filteredTransactions.length && (
-          <span className="pt-2 pb-8 text-muted-foreground text-sm text-center">
-            {!filteredTransactions.length
-              ? $t({ id: 'transaction.list.empty' })
-              : $t({ id: 'transaction.list.end' })}
-          </span>
-        )}
+        {!filteredTransactions.length
+          ? (
+              <span className="py-2 mb-6 text-muted-foreground text-sm text-center">
+                {$t({ id: 'transaction.list.empty' })}
+              </span>
+            )
+          : (
+              visibleTransactions.length === filteredTransactions.length && (
+                <span
+                  className="py-2 mb-6 text-muted-foreground text-sm text-center cursor-pointer"
+                  onClick={() => resetScroll('smooth')}
+                >
+                  {$t({ id: 'transaction.list.end' })}
+                </span>
+              )
+            )}
       </div>
     </div>
   );
