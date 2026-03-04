@@ -1,6 +1,6 @@
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
 import { TagsIcon } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useTransaction } from '@/hooks/use-transaction';
 import { cn } from '@/lib/utils';
@@ -35,40 +35,48 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
 
   const { filterTransactions } = useTransaction();
 
-  const options = useMemo(
-    () =>
-      transactions
-        .reduce<Array<Option>>(
-          (result, transaction) => {
-            transaction.tags.forEach((tag) => {
-              if (!result.some(currentOption => currentOption.value === tag)) {
-                const count = filterTransactions({ ...value, tags: [tag] }, transactions).length;
-                result.push({
-                  value: tag,
-                  label: tag,
-                  count,
-                });
-              }
-            });
-            return result;
+  const options = useMemo(() => {
+    const result = transactions
+      .reduce<Array<Option>>(
+        (result, transaction) => {
+          transaction.tags.forEach((tag) => {
+            if (!result.some(currentOption => currentOption.value === tag)) {
+              const count = filterTransactions({ ...value, tags: [tag] }, transactions).length;
+              result.push({
+                value: tag,
+                label: tag,
+                count,
+              });
+            }
+          });
+          return result;
+        },
+        [
+          {
+            value: ALL_VALUE,
+            label: $t({ id: 'transaction.list.filter.tags.all' }),
+            count: filterTransactions({ ...value, tags: [] }, transactions).length,
           },
-          [
-            {
-              value: ALL_VALUE,
-              label: $t({ id: 'transaction.list.filter.tags.all' }),
-              count: filterTransactions({ ...value, tags: [] }, transactions).length,
-            },
-          ],
-        )
-        .sort((optionA, optionB) => optionB.count - optionA.count),
-    [value, transactions],
-  );
+        ],
+      )
+      .sort((optionA, optionB) => optionB.count - optionA.count);
+    value.tags?.forEach((tag) => {
+      if (!result.some(currentOption => currentOption.value === tag)) {
+        result.push({
+          value: tag,
+          label: tag,
+          count: 0,
+        });
+      }
+    });
+    return result;
+  }, [value, transactions]);
 
   const valueOptions = useMemo(() => {
     if (!value.tags?.length || value.tags.length === options.length - 1) {
       return [options[0]];
     }
-    return value.tags.map(tag => options.find(option => option.value === tag)!).filter(Boolean);
+    return value.tags.map(tag => options.find(option => option.value === tag)!);
   }, [value.tags, options]);
 
   function onValueOptionsChange(newValueOptions: Array<Option>) {
@@ -87,15 +95,6 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
       });
     }
   }
-
-  useEffect(() => {
-    if (value.tags?.some(tag => !options.some(option => option.value === tag))) {
-      onChange?.({
-        ...value,
-        tags: value.tags?.filter(tag => options.some(option => option.value === tag)),
-      });
-    }
-  }, [options]);
 
   return (
     <Combobox
