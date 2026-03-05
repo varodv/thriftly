@@ -2,28 +2,31 @@ import type { Category } from '@/hooks/use-category';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useCategory } from '@/hooks/use-category';
+import { cn } from '@/lib/utils';
 import { ColorInput } from './color-input';
 import { IconInput } from './icon-input';
 import { Button } from './ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from './ui/dialog';
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from './ui/drawer';
 import { Field, FieldDescription, FieldError, FieldGroup } from './ui/field';
 import { Input } from './ui/input';
 
 interface Props {
   open: boolean;
   category?: Category;
+  nested?: boolean;
   onOpenChange?: (open: boolean) => void;
   onSubmit: (category: Omit<Category, 'id'> & Partial<Pick<Category, 'id'>>) => void;
 }
 
-export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props) {
+export function CategoryDialog({ open, category, nested, onOpenChange, onSubmit }: Props) {
   const { $t } = useIntl();
 
   const { categories } = useCategory();
@@ -51,7 +54,9 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
     const nameRepeated
       = !nameEmpty
         && categories.some(
-          currentCategory => currentCategory.name.toLowerCase() === trimmedName.toLowerCase(),
+          currentCategory =>
+            currentCategory.id !== category?.id
+            && currentCategory.name.toLowerCase() === trimmedName.toLowerCase(),
         );
     return [
       nameEmpty ? { message: $t({ id: 'category.dialog.fields.name.errors.empty' }) } : undefined,
@@ -106,63 +111,68 @@ export function CategoryDialog({ open, category, onOpenChange, onSubmit }: Props
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>
+    <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent className={cn('max-h-screen!', nested ? 'h-[90dvh]' : 'h-[95dvh]')}>
+        <DrawerHeader>
+          <DrawerTitle>
             {category?.id
               ? $t({ id: 'category.dialog.title.update' })
               : $t({ id: 'category.dialog.title.create' })}
-          </DialogTitle>
-          <DialogDescription>
+          </DrawerTitle>
+          <DrawerDescription>
             {category?.id
               ? $t({ id: 'category.dialog.description.update' })
               : $t({ id: 'category.dialog.description.create' })}
-          </DialogDescription>
-        </DialogHeader>
-        <FieldGroup>
-          <Field data-invalid={nameInvalid}>
-            <Input
-              value={name ?? ''}
-              placeholder={$t({ id: 'category.dialog.fields.name.placeholder' })}
-              required
-              aria-invalid={nameInvalid}
-              onChange={event => setName(event.target.value)}
-            />
-            <FieldError errors={nameDirty ? nameErrors : []} />
-            <FieldDescription>
-              {$t({ id: 'category.dialog.fields.name.description' })}
-            </FieldDescription>
-          </Field>
-          <Field data-invalid={iconInvalid}>
-            <IconInput
-              value={icon}
-              placeholder={$t({ id: 'category.dialog.fields.icon.placeholder' })}
-              required
-              ariaInvalid={iconInvalid}
-              onChange={setIcon}
-            />
-            <FieldError errors={iconDirty ? iconErrors : []} />
-          </Field>
-          <Field data-invalid={colorInvalid}>
-            <ColorInput
-              value={color}
-              placeholder={$t({ id: 'category.dialog.fields.color.placeholder' })}
-              required
-              ariaInvalid={colorInvalid}
-              onChange={setColor}
-            />
-            <FieldError errors={colorDirty ? colorErrors : []} />
-          </Field>
-        </FieldGroup>
-        <DialogFooter className="mt-4">
-          <Button disabled={!dirty || !valid} onClick={handleSubmit}>
-            {category?.id
-              ? $t({ id: 'category.dialog.actions.update' })
-              : $t({ id: 'category.dialog.actions.create' })}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className="flex flex-col flex-1 overflow-auto">
+          <FieldGroup className="p-4">
+            <Field data-invalid={nameInvalid}>
+              <Input
+                value={name ?? ''}
+                placeholder={$t({ id: 'category.dialog.fields.name.placeholder' })}
+                required
+                aria-invalid={nameInvalid}
+                onChange={event => setName(event.target.value)}
+              />
+              <FieldError errors={nameDirty ? nameErrors : []} />
+              <FieldDescription>
+                {$t({ id: 'category.dialog.fields.name.description' })}
+              </FieldDescription>
+            </Field>
+            <Field data-invalid={iconInvalid}>
+              <IconInput
+                value={icon}
+                placeholder={$t({ id: 'category.dialog.fields.icon.placeholder' })}
+                required
+                ariaInvalid={iconInvalid}
+                onChange={setIcon}
+              />
+              <FieldError errors={iconDirty ? iconErrors : []} />
+            </Field>
+            <Field data-invalid={colorInvalid}>
+              <ColorInput
+                value={color}
+                placeholder={$t({ id: 'category.dialog.fields.color.placeholder' })}
+                required
+                ariaInvalid={colorInvalid}
+                onChange={setColor}
+              />
+              <FieldError errors={colorDirty ? colorErrors : []} />
+            </Field>
+          </FieldGroup>
+          <DrawerFooter>
+            <Button disabled={!dirty || !valid} onClick={handleSubmit}>
+              {category?.id
+                ? $t({ id: 'category.dialog.actions.update' })
+                : $t({ id: 'category.dialog.actions.create' })}
+            </Button>
+            <DrawerClose asChild>
+              <Button variant="outline">{$t({ id: 'category.dialog.actions.cancel' })}</Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 }

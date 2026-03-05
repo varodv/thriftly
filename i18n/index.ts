@@ -15,6 +15,7 @@ export const MESSAGES = {
   'transaction.list.end': 'You made it to the end!',
   'transaction.list.item.actions.update': 'Edit',
   'transaction.list.item.actions.delete': 'Remove',
+  'transaction.list.item.actions.category.update': 'Edit category',
   'transaction.delete.dialog.title': 'Remove transaction',
   'transaction.delete.dialog.description': 'Are you sure you want to remove this transaction?',
   'transaction.delete.dialog.actions.delete': 'Remove',
@@ -59,8 +60,10 @@ export const MESSAGES = {
   'category.dialog.fields.color.options.used': 'Already used',
   'category.dialog.actions.create': 'Add',
   'category.dialog.actions.update': 'Edit',
+  'category.dialog.actions.cancel': 'Cancel',
 
   'category.toast.create.success': 'Category added',
+  'category.toast.update.success': 'Category edited',
 
   'tags.input.options.new': '(new)',
   'tags.input.options.other': 'Other',

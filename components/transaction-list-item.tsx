@@ -1,3 +1,4 @@
+import type { Category } from '@/hooks/use-category';
 import type { Transaction } from '@/hooks/use-transaction';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -29,9 +30,16 @@ interface Props {
   transaction: Transaction;
   onUpdate?: () => void;
   onDelete?: () => void;
+  onCategoryUpdate?: (category: Category) => void;
 }
 
-export function TransactionListItem({ className, transaction, onUpdate, onDelete }: Props) {
+export function TransactionListItem({
+  className,
+  transaction,
+  onUpdate,
+  onDelete,
+  onCategoryUpdate,
+}: Props) {
   const { $t } = useIntl();
 
   const { categories } = useCategory();
@@ -101,7 +109,6 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
               <PencilIcon />
               {$t({ id: 'transaction.list.item.actions.update' })}
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               variant="destructive"
               {...stopPropagationHandlers}
@@ -114,6 +121,22 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
               <TrashIcon />
               {$t({ id: 'transaction.list.item.actions.delete' })}
             </DropdownMenuItem>
+            {category && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  {...stopPropagationHandlers}
+                  onClick={(event) => {
+                    onCategoryUpdate?.(category);
+                    setMenuOpen(false);
+                    event.stopPropagation();
+                  }}
+                >
+                  <Icon className={`text-${category.color}-500`} name={category.icon} />
+                  {$t({ id: 'transaction.list.item.actions.category.update' })}
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

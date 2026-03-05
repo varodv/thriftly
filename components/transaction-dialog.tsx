@@ -133,7 +133,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
   }
 
   return (
-    <Drawer open={open} handleOnly onOpenChange={onOpenChange}>
+    <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="h-[95dvh] max-h-screen!">
         <DrawerHeader>
           <DrawerTitle>

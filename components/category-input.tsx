@@ -90,6 +90,7 @@ export function CategoryInput({
       </Select>
       <CategoryDialog
         open={dialogOpen}
+        nested
         onOpenChange={setDialogOpen}
         onSubmit={handleDialogSubmit}
       />

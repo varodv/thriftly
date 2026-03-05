@@ -1,3 +1,4 @@
+import type { Category } from '@/hooks/use-category';
 import type { Transaction } from '@/hooks/use-transaction';
 import { FormattedNumber } from 'react-intl';
 import { cn } from '@/lib/utils';
@@ -9,6 +10,7 @@ interface Props {
   transactions: Array<Transaction>;
   onUpdate?: (transaction: Transaction) => void;
   onDelete?: (transaction: Transaction) => void;
+  onCategoryUpdate?: (category: Category) => void;
 }
 
 export function TransactionListGroup({
@@ -17,6 +19,7 @@ export function TransactionListGroup({
   transactions,
   onUpdate,
   onDelete,
+  onCategoryUpdate,
 }: Props) {
   const income = transactions.reduce((result, transaction) => {
     if (transaction.amount > 0) {
@@ -69,6 +72,7 @@ export function TransactionListGroup({
             transaction={transaction}
             onUpdate={() => onUpdate?.(transaction)}
             onDelete={() => onDelete?.(transaction)}
+            onCategoryUpdate={onCategoryUpdate}
           />
         ))}
       </div>

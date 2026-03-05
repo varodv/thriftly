@@ -1,3 +1,4 @@
+import type { Category } from '@/hooks/use-category';
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedNumber, useIntl } from 'react-intl';
@@ -12,11 +13,18 @@ interface Props {
   transactions: Array<Transaction>;
   onUpdate?: (transaction: Transaction) => void;
   onDelete?: (transaction: Transaction) => void;
+  onCategoryUpdate?: (category: Category) => void;
 }
 
 const PAGE_SIZE = 10;
 
-export function TransactionList({ className, transactions, onUpdate, onDelete }: Props) {
+export function TransactionList({
+  className,
+  transactions,
+  onUpdate,
+  onDelete,
+  onCategoryUpdate,
+}: Props) {
   const { $t, formatNumber } = useIntl();
 
   const { formatDate } = useDate();
@@ -157,6 +165,7 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
             transactions={group.transactions}
             onUpdate={onUpdate}
             onDelete={onDelete}
+            onCategoryUpdate={onCategoryUpdate}
           />
         ))}
         <div
