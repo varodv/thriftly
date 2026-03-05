@@ -101,7 +101,6 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
       value={valueOptions}
       multiple
       items={options}
-      autoHighlight
       onValueChange={onValueOptionsChange}
     >
       <ComboboxTrigger

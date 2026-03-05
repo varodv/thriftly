@@ -12,6 +12,8 @@ export type Transaction = Entity<{
 }>;
 
 export interface TransactionFilters {
+  startDate?: Date;
+  endDate?: Date;
   categories?: Array<Category['id']>;
   tags?: Array<string>;
 }
@@ -37,6 +39,12 @@ export function useTransaction() {
 
   function filterTransactions(filters: TransactionFilters, array = transactions) {
     return array.filter((transaction) => {
+      if (filters.startDate && transaction.timestamp < filters.startDate.getTime()) {
+        return false;
+      }
+      if (filters.endDate && transaction.timestamp > filters.endDate.getTime()) {
+        return false;
+      }
       if (filters.categories?.length && !filters.categories.includes(transaction.category)) {
         return false;
       }

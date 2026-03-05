@@ -5,6 +5,10 @@ export const MESSAGES = {
 
   'transaction.list.count': '{count} transactions',
   'transaction.list.count.filtered': '{filtered} of {count} transactions',
+  'transaction.list.filter.period.all': 'All time',
+  'transaction.list.filter.period.week': 'This week',
+  'transaction.list.filter.period.month': 'This month',
+  'transaction.list.filter.period.year': 'This year',
   'transaction.list.filter.categories.all': 'All categories',
   'transaction.list.filter.tags.all': 'All tags',
   'transaction.list.empty': 'No transactions found',

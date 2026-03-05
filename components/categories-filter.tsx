@@ -104,7 +104,6 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
       value={valueOptions}
       multiple
       items={options}
-      autoHighlight
       onValueChange={onValueOptionsChange}
     >
       <ComboboxTrigger
