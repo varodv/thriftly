@@ -40,15 +40,15 @@ export function TransactionListGroup({
           'bg-linear-to-t from-background/50 to-background backdrop-blur-xs',
         )}
       >
-        <span className="flex items-center gap-2 capitalize">
-          {title}
+        <span className="flex items-center gap-2 overflow-hidden capitalize">
+          <span className="truncate">{title}</span>
           <span className="text-muted-foreground text-xs">
             (
             <FormattedNumber value={transactions.length} />
             )
           </span>
         </span>
-        <div className="flex gap-2 ml-auto font-bold text-sm">
+        <div className="flex gap-2 shrink-0 ml-auto font-bold text-sm">
           {income > 0 && (
             <span className="text-green-500">
               +

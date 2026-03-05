@@ -38,14 +38,14 @@ export function BalanceCard({ className, transactions }: Props) {
             <CardHeader className="flex-1 p-0">
               <CardTitle
                 className={cn(
-                  'text-2xl font-bold',
+                  'text-2xl font-bold whitespace-nowrap',
                   balance > 0 ? 'text-green-500' : 'text-red-500',
                 )}
               >
                 {balance > 0 && '+'}
                 <FormattedNumber value={balance} format="currency" />
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="truncate">
                 {$t(
                   { id: 'balance.card.description' },
                   {

@@ -118,7 +118,7 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
           className="flex items-center gap-3 p-3 text-sm cursor-pointer"
           onClick={() => resetScroll('smooth')}
         >
-          <span className="text-muted-foreground">
+          <span className="text-muted-foreground truncate">
             {filteredTransactions.length < transactions.length
               ? $t(
                   { id: 'transaction.list.count.filtered' },
@@ -134,7 +134,7 @@ export function TransactionList({ className, transactions, onUpdate, onDelete }:
                   },
                 )}
           </span>
-          <div className="flex gap-2 ml-auto font-bold">
+          <div className="flex gap-2 shrink-0 ml-auto font-bold">
             {income > 0 && (
               <span className="text-green-500">
                 +

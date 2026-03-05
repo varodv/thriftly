@@ -69,7 +69,7 @@ export function TransactionListItem({ className, transaction, onUpdate, onDelete
           <Icon className="size-5" name={category?.icon ?? 'circle-question-mark'} />
         </div>
         <div className="flex flex-col overflow-hidden">
-          <span className="font-medium">{category?.name ?? transaction.category}</span>
+          <span className="font-medium truncate">{category?.name ?? transaction.category}</span>
           {transaction.tags.length > 0 && (
             <span className="text-muted-foreground text-xs truncate">
               {transaction.tags.join(', ')}
