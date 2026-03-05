@@ -59,7 +59,15 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
           },
         ],
       )
-      .sort((optionA, optionB) => optionB.count - optionA.count);
+      .sort((optionA, optionB) => {
+        if (optionA.value === ALL_VALUE) {
+          return -1;
+        }
+        if (optionB.value === ALL_VALUE) {
+          return 1;
+        }
+        return optionA.label.localeCompare(optionB.label);
+      });
     value.tags?.forEach((tag) => {
       if (!result.some(currentOption => currentOption.value === tag)) {
         result.push({

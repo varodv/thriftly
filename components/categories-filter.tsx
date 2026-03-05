@@ -71,7 +71,15 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
             },
           ],
         )
-        .sort((optionA, optionB) => optionB.count - optionA.count),
+        .sort((optionA, optionB) => {
+          if (optionA.value === ALL_VALUE) {
+            return -1;
+          }
+          if (optionB.value === ALL_VALUE) {
+            return 1;
+          }
+          return optionA.label.localeCompare(optionB.label);
+        }),
     [value, transactions, categories],
   );
 
