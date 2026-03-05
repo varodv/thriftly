@@ -108,12 +108,7 @@ export function CategoriesFilter({ className, value, transactions, onChange }: P
   }
 
   return (
-    <Combobox
-      value={valueOptions}
-      multiple
-      items={options}
-      onValueChange={onValueOptionsChange}
-    >
+    <Combobox value={valueOptions} multiple items={options} onValueChange={onValueOptionsChange}>
       <ComboboxTrigger
         render={(
           <Button

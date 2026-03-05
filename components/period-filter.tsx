@@ -88,18 +88,10 @@ export function PeriodFilter({ className, value, transactions, onChange }: Props
   }
 
   return (
-    <Combobox
-      value={valueOption}
-      items={options}
-      onValueChange={onValueOptionChange}
-    >
+    <Combobox value={valueOption} items={options} onValueChange={onValueOptionChange}>
       <ComboboxTrigger
         render={(
-          <Button
-            className={cn('rounded-full', className)}
-            variant="outline"
-            size="sm"
-          >
+          <Button className={cn('rounded-full', className)} variant="outline" size="sm">
             {valueOption.value !== OPTION_VALUES[0] && <CalendarIcon />}
             {valueOption.label}
           </Button>

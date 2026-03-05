@@ -105,12 +105,7 @@ export function TagsFilter({ className, value, transactions, onChange }: Props) 
   }
 
   return (
-    <Combobox
-      value={valueOptions}
-      multiple
-      items={options}
-      onValueChange={onValueOptionsChange}
-    >
+    <Combobox value={valueOptions} multiple items={options} onValueChange={onValueOptionsChange}>
       <ComboboxTrigger
         render={(
           <Button
