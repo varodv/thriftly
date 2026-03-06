@@ -31,6 +31,8 @@ export default function Page() {
 
   const [selectedCategory, setSelectedCategory] = useState<Category>();
 
+  const [balanceCardOpen, setBalanceCardOpen] = useState(false);
+
   useEffect(() => {
     if (!transactionDialogOpen) {
       setSelectedTransaction(undefined);
@@ -86,13 +88,18 @@ export default function Page() {
         <div className="flex items-center justify-between mx-4">
           <h1 className="mx-auto text-3xl font-bold">thriftly</h1>
         </div>
-        <BalanceCard className="mx-4" transactions={transactions} />
+        <BalanceCard
+          className="mx-4"
+          transactions={transactions}
+          openState={[balanceCardOpen, setBalanceCardOpen]}
+        />
         <TransactionList
           className="flex-1 px-4"
           transactions={transactions}
           onUpdate={setSelectedTransaction}
           onDelete={onTransactionDelete}
           onCategoryUpdate={setSelectedCategory}
+          onScroll={() => balanceCardOpen && setBalanceCardOpen(false)}
         />
         <TransactionDialog
           open={transactionDialogOpen}

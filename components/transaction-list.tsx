@@ -14,6 +14,7 @@ interface Props {
   onUpdate?: (transaction: Transaction) => void;
   onDelete?: (transaction: Transaction) => void;
   onCategoryUpdate?: (category: Category) => void;
+  onScroll?: () => void;
 }
 
 const PAGE_SIZE = 10;
@@ -24,6 +25,7 @@ export function TransactionList({
   onUpdate,
   onDelete,
   onCategoryUpdate,
+  onScroll,
 }: Props) {
   const { $t, formatNumber } = useIntl();
 
@@ -157,7 +159,11 @@ export function TransactionList({
           </div>
         </div>
       )}
-      <div ref={listRef} className="flex flex-col flex-1 gap-6 overflow-y-auto px-4 -mx-4">
+      <div
+        ref={listRef}
+        className="flex flex-col flex-1 gap-6 overflow-y-auto px-4 -mx-4"
+        onScroll={onScroll}
+      >
         {visibleGroups.map(group => (
           <TransactionListGroup
             key={group.date.toISOString()}

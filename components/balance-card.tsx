@@ -11,14 +11,15 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collap
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
+  openState?: ReturnType<typeof useState<boolean>>;
 }
 
-export function BalanceCard({ className, transactions }: Props) {
+export function BalanceCard({ className, transactions, openState }: Props) {
   const { $t } = useIntl();
 
   const { formatDate } = useDate();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = openState ?? useState(false);
 
   const balance = useMemo(
     () => transactions.reduce((result, transaction) => result + transaction.amount, 0),
