@@ -1,5 +1,6 @@
 import type { Category } from '@/hooks/use-category';
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
+import { startOfDay } from 'date-fns';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedNumber, useIntl } from 'react-intl';
 import { useDate } from '@/hooks/use-date';
@@ -17,8 +18,6 @@ interface Props {
   onScroll?: () => void;
 }
 
-const PAGE_SIZE = 10;
-
 export function TransactionList({
   className,
   transactions,
@@ -35,46 +34,35 @@ export function TransactionList({
 
   const listRef = useRef<HTMLDivElement>(null);
 
-  const observerTarget = useRef<HTMLDivElement>(null);
-
   const [filters, setFilters] = useState<TransactionFilters>({});
-
-  const [visiblePages, setVisiblePages] = useState(1);
 
   const filteredTransactions = useMemo(
     () => filterTransactions(filters, transactions),
     [transactions, filters],
   );
 
-  const visibleTransactions = useMemo(
+  const transactionGroups = useMemo(
     () =>
       filteredTransactions
         .reverse()
         .sort((transactionA, transactionB) => transactionB.timestamp - transactionA.timestamp)
-        .slice(0, visiblePages * PAGE_SIZE),
-    [filteredTransactions, visiblePages],
-  );
-
-  const visibleGroups = useMemo(
-    () =>
-      visibleTransactions.reduce<Array<{ date: Date; transactions: Array<Transaction> }>>(
-        (result, transaction) => {
-          const date = new Date(transaction.timestamp);
-          date.setHours(0, 0, 0, 0);
-          let group = result.find(currentGroup => currentGroup.date.getTime() === date.getTime());
-          if (!group) {
-            group = {
-              date,
-              transactions: [],
-            };
-            result.push(group);
-          }
-          group.transactions.push(transaction);
-          return result;
-        },
-        [],
-      ),
-    [visibleTransactions],
+        .reduce<Array<{ date: Date; transactions: Array<Transaction> }>>(
+          (result, transaction) => {
+            const date = startOfDay(transaction.timestamp);
+            let group = result.find(currentGroup => currentGroup.date.getTime() === date.getTime());
+            if (!group) {
+              group = {
+                date,
+                transactions: [],
+              };
+              result.push(group);
+            }
+            group.transactions.push(transaction);
+            return result;
+          },
+          [],
+        ),
+    [filteredTransactions],
   );
 
   const income = useMemo(
@@ -100,20 +88,7 @@ export function TransactionList({
   );
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setVisiblePages(prev => prev + 1);
-      }
-    });
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     resetScroll();
-    setVisiblePages(1);
   }, [transactions, filters]);
 
   function resetScroll(behavior?: ScrollBehavior) {
@@ -164,7 +139,7 @@ export function TransactionList({
         className="flex flex-col flex-1 gap-6 overflow-y-auto px-4 -mx-4"
         onScroll={onScroll}
       >
-        {visibleGroups.map(group => (
+        {transactionGroups.map(group => (
           <TransactionListGroup
             key={group.date.toISOString()}
             title={formatDate(group.date)}
@@ -174,10 +149,6 @@ export function TransactionList({
             onCategoryUpdate={onCategoryUpdate}
           />
         ))}
-        <div
-          ref={observerTarget}
-          className={cn({ hidden: visibleTransactions.length === filteredTransactions.length })}
-        />
         {!filteredTransactions.length
           ? (
               <span className="py-2 mb-6 text-muted-foreground text-sm text-center">
@@ -185,14 +156,12 @@ export function TransactionList({
               </span>
             )
           : (
-              visibleTransactions.length === filteredTransactions.length && (
-                <span
-                  className="py-2 mb-6 text-muted-foreground text-sm text-center cursor-pointer"
-                  onClick={() => resetScroll('smooth')}
-                >
-                  {$t({ id: 'transaction.list.end' })}
-                </span>
-              )
+              <span
+                className="py-2 mb-6 text-muted-foreground text-sm text-center cursor-pointer"
+                onClick={() => resetScroll('smooth')}
+              >
+                {$t({ id: 'transaction.list.end' })}
+              </span>
             )}
       </div>
     </div>
