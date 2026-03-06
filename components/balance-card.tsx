@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import type { Transaction } from '@/hooks/use-transaction';
 import { ChevronDownIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
@@ -11,7 +12,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collap
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
-  openState?: ReturnType<typeof useState<boolean>>;
+  openState?: [boolean, Dispatch<SetStateAction<boolean>>];
 }
 
 export function BalanceCard({ className, transactions, openState }: Props) {
