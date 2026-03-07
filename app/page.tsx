@@ -2,7 +2,6 @@
 
 import type { Category } from '@/hooks/use-category';
 import type { Transaction } from '@/hooks/use-transaction';
-import { PlusIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
@@ -10,7 +9,6 @@ import { BalanceCard } from '@/components/balance-card';
 import { CategoryDialog } from '@/components/category-dialog';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
-import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/sonner';
 import { useCategory } from '@/hooks/use-category';
 import { useTransaction } from '@/hooks/use-transaction';
@@ -96,6 +94,7 @@ export default function Page() {
         <TransactionList
           className="flex-1 px-4"
           transactions={transactions}
+          onCreate={() => setTransactionDialogOpen(true)}
           onUpdate={setSelectedTransaction}
           onDelete={onTransactionDelete}
           onCategoryUpdate={setSelectedCategory}
@@ -113,11 +112,6 @@ export default function Page() {
           onOpenChange={setCategoryDialogOpen}
           onSubmit={onCategoryDialogSubmit}
         />
-        <div className="flex items-center justify-between mx-4">
-          <Button className="mx-auto" size="icon" onClick={() => setTransactionDialogOpen(true)}>
-            <PlusIcon />
-          </Button>
-        </div>
       </main>
       <Toaster position="top-center" />
     </>

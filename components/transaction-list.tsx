@@ -1,6 +1,7 @@
 import type { Category } from '@/hooks/use-category';
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
 import { startOfDay } from 'date-fns';
+import { PlusIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedNumber, useIntl } from 'react-intl';
 import { useDate } from '@/hooks/use-date';
@@ -8,10 +9,12 @@ import { useTransaction } from '@/hooks/use-transaction';
 import { cn } from '@/lib/utils';
 import { TransactionListFilters } from './transaction-list-filters';
 import { TransactionListGroup } from './transaction-list-group';
+import { Button } from './ui/button';
 
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
+  onCreate?: () => void;
   onUpdate?: (transaction: Transaction) => void;
   onDelete?: (transaction: Transaction) => void;
   onCategoryUpdate?: (category: Category) => void;
@@ -21,6 +24,7 @@ interface Props {
 export function TransactionList({
   className,
   transactions,
+  onCreate,
   onUpdate,
   onDelete,
   onCategoryUpdate,
@@ -151,18 +155,25 @@ export function TransactionList({
         ))}
         {!filteredTransactions.length
           ? (
-              <span className="py-2 mb-6 text-muted-foreground text-sm text-center">
+              <span className="py-8 text-muted-foreground text-sm text-center">
                 {$t({ id: 'transaction.list.empty' })}
               </span>
             )
           : (
               <span
-                className="py-2 mb-6 text-muted-foreground text-sm text-center cursor-pointer"
+                className="py-2 text-muted-foreground text-sm text-center cursor-pointer"
                 onClick={() => resetScroll('smooth')}
               >
                 {$t({ id: 'transaction.list.end' })}
               </span>
             )}
+        <Button
+          className="sticky z-20 bottom-0 mt-auto mx-auto"
+          size="icon"
+          onClick={() => onCreate?.()}
+        >
+          <PlusIcon />
+        </Button>
       </div>
     </div>
   );
