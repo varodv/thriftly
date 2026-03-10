@@ -27,7 +27,7 @@ interface DataItem {
   expense: number;
 }
 
-export function CashFlowChart({ className, transactions, maxItems = 0 }: Props) {
+export function BalanceChart({ className, transactions, maxItems = 0 }: Props) {
   const { formatNumber } = useIntl();
 
   const { formatDate } = useDate();

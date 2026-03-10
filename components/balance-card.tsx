@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { useDate } from '@/hooks/use-date';
 import { cn } from '@/lib/utils';
-import { CashFlowChart } from './cash-flow-chart';
+import { BalanceChart } from './balance-chart';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 
@@ -104,7 +104,7 @@ export function BalanceCard({ className, transactions, openState }: Props) {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <CardContent className="p-0">
-            <CashFlowChart transactions={chartTransactions} />
+            <BalanceChart transactions={chartTransactions} />
           </CardContent>
           <CardFooter className="flex-col items-start p-0 text-sm">
             <span className="truncate">
