@@ -97,7 +97,9 @@ export function BalanceCard({ className, transactions, openState }: Props) {
             </CardHeader>
             {!!transactions.length && (
               <ChevronDownIcon
-                className={cn('size-4 m-2 transition-transform', { 'rotate-180': open })}
+                className={cn('size-4 m-2 transition-transform duration-300', {
+                  'rotate-180': open,
+                })}
               />
             )}
           </div>
