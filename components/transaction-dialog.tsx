@@ -1,4 +1,5 @@
 import type { Transaction } from '@/hooks/use-transaction';
+import { startOfDay } from 'date-fns';
 import { EuroIcon, MinusIcon, PlusIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -114,7 +115,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
     if (open) {
       setType((transaction?.amount ?? -1) < 0 ? TransactionType.EXPENSE : TransactionType.INCOME);
       setAmount(transaction?.amount ? Math.abs(transaction.amount) : undefined);
-      setTimestamp(transaction?.timestamp ?? new Date().setHours(0, 0, 0, 0));
+      setTimestamp(transaction?.timestamp ?? startOfDay(new Date()).getTime());
       setCategory(transaction?.category);
       setTags(transaction?.tags ?? []);
     }

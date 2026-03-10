@@ -1,6 +1,6 @@
 import type { ChartConfig } from './ui/chart';
 import type { Transaction } from '@/hooks/use-transaction';
-import { isThisMonth } from 'date-fns';
+import { isThisMonth, startOfMonth } from 'date-fns';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import {
@@ -45,9 +45,7 @@ export function CashFlowChart({ className, transactions, maxItems = 0 }: Props) 
     () =>
       transactions
         .reduce<Array<DataItem>>((result, transaction) => {
-          const date = new Date(transaction.timestamp);
-          date.setDate(1);
-          date.setHours(0, 0, 0, 0);
+          const date = startOfMonth(transaction.timestamp);
           let item = result.find(currentItem => currentItem.date.getTime() === date.getTime());
           if (!item) {
             item = {

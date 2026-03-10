@@ -50,22 +50,19 @@ export function TransactionList({
       filteredTransactions
         .reverse()
         .sort((transactionA, transactionB) => transactionB.timestamp - transactionA.timestamp)
-        .reduce<Array<{ date: Date; transactions: Array<Transaction> }>>(
-          (result, transaction) => {
-            const date = startOfDay(transaction.timestamp);
-            let group = result.find(currentGroup => currentGroup.date.getTime() === date.getTime());
-            if (!group) {
-              group = {
-                date,
-                transactions: [],
-              };
-              result.push(group);
-            }
-            group.transactions.push(transaction);
-            return result;
-          },
-          [],
-        ),
+        .reduce<Array<{ date: Date; transactions: Array<Transaction> }>>((result, transaction) => {
+          const date = startOfDay(transaction.timestamp);
+          let group = result.find(currentGroup => currentGroup.date.getTime() === date.getTime());
+          if (!group) {
+            group = {
+              date,
+              transactions: [],
+            };
+            result.push(group);
+          }
+          group.transactions.push(transaction);
+          return result;
+        }, []),
     [filteredTransactions],
   );
 

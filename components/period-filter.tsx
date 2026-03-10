@@ -1,5 +1,13 @@
 import type { Transaction, TransactionFilters } from '@/hooks/use-transaction';
-import { endOfMonth, endOfWeek, endOfYear, startOfMonth, startOfWeek, startOfYear } from 'date-fns';
+import {
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+} from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
@@ -70,8 +78,7 @@ export function PeriodFilter({ className, value, transactions, onChange }: Props
   }
 
   function getOptionPeriod(optionValue: Option['value']): Option['period'] {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today = startOfDay(new Date());
     switch (optionValue) {
       case 'all':
         return [undefined, undefined];
