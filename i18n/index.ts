@@ -69,8 +69,4 @@ export const MESSAGES = {
   'tags.input.options.other': 'Other',
 
   'icon.input.options.empty': 'No icons found',
-
-  'balance.card.description': 'Since {date}',
-  'balance.card.current': '{value} this month',
-  'balance.card.mean': '{value} avg. (last {months} months)',
 };
