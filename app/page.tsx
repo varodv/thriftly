@@ -82,7 +82,7 @@ export default function Page() {
 
   return (
     <>
-      <main className="flex flex-col gap-3 h-full py-4">
+      <main className="flex flex-col gap-3 h-full max-w-xl mx-auto py-4">
         <div className="flex items-center justify-between mx-4">
           <h1 className="mx-auto text-3xl font-bold">thriftly</h1>
         </div>
@@ -101,12 +101,14 @@ export default function Page() {
           onScroll={() => cardOpen && setCardOpen(false)}
         />
         <TransactionDialog
+          className="max-w-xl mx-auto"
           open={transactionDialogOpen}
           transaction={selectedTransaction}
           onOpenChange={setTransactionDialogOpen}
           onSubmit={onTransactionDialogSubmit}
         />
         <CategoryDialog
+          className="max-w-xl mx-auto"
           open={categoryDialogOpen}
           category={selectedCategory}
           onOpenChange={setCategoryDialogOpen}

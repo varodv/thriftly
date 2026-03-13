@@ -89,6 +89,7 @@ export function CategoryInput({
         </SelectContent>
       </Select>
       <CategoryDialog
+        className="max-w-xl mx-auto"
         open={dialogOpen}
         nested
         onOpenChange={setDialogOpen}

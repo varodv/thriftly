@@ -3,6 +3,7 @@ import { startOfDay } from 'date-fns';
 import { EuroIcon, MinusIcon, PlusIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { cn } from '@/lib/utils';
 import { CategoryInput } from './category-input';
 import { DateInput } from './date-input';
 import { TagsInput } from './tags-input';
@@ -21,6 +22,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
 import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
 
 interface Props {
+  className?: string;
   open: boolean;
   transaction?: Transaction;
   onOpenChange?: (open: boolean) => void;
@@ -32,7 +34,7 @@ enum TransactionType {
   INCOME = 'income',
 }
 
-export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }: Props) {
+export function TransactionDialog({ className, open, transaction, onOpenChange, onSubmit }: Props) {
   const { $t } = useIntl();
 
   const [type, setType] = useState<string>();
@@ -135,7 +137,7 @@ export function TransactionDialog({ open, transaction, onOpenChange, onSubmit }:
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="h-[95dvh] max-h-screen!">
+      <DrawerContent className={cn('h-[95dvh] max-h-screen!', className)}>
         <DrawerHeader>
           <DrawerTitle>
             {transaction?.id

@@ -19,6 +19,7 @@ import { Field, FieldDescription, FieldError, FieldGroup } from './ui/field';
 import { Input } from './ui/input';
 
 interface Props {
+  className?: string;
   open: boolean;
   category?: Category;
   nested?: boolean;
@@ -26,7 +27,14 @@ interface Props {
   onSubmit: (category: Omit<Category, 'id'> & Partial<Pick<Category, 'id'>>) => void;
 }
 
-export function CategoryDialog({ open, category, nested, onOpenChange, onSubmit }: Props) {
+export function CategoryDialog({
+  className,
+  open,
+  category,
+  nested,
+  onOpenChange,
+  onSubmit,
+}: Props) {
   const { $t } = useIntl();
 
   const { categories } = useCategory();
@@ -112,7 +120,7 @@ export function CategoryDialog({ open, category, nested, onOpenChange, onSubmit 
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className={cn('max-h-screen!', nested ? 'h-[90dvh]' : 'h-[95dvh]')}>
+      <DrawerContent className={cn('max-h-screen!', nested ? 'h-[90dvh]' : 'h-[95dvh]', className)}>
         <DrawerHeader>
           <DrawerTitle>
             {category?.id
