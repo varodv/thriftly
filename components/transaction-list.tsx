@@ -143,13 +143,16 @@ export function TransactionList({
                 {$t({ id: 'transaction.list.end' })}
               </span>
             )}
-        <Button
-          className="sticky z-20 bottom-0 mt-auto mx-auto"
-          size="icon"
-          onClick={() => onCreate?.()}
+        <div
+          className={cn(
+            'sticky z-20 bottom-0 flex items-center justify-center mt-auto',
+            'bg-linear-to-b from-background/0 to-background',
+          )}
         >
-          <PlusIcon />
-        </Button>
+          <Button size="icon" onClick={() => onCreate?.()}>
+            <PlusIcon />
+          </Button>
+        </div>
       </div>
     </div>
   );
