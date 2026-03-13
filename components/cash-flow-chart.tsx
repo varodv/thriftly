@@ -10,19 +10,19 @@ import { ChartContainer } from './ui/chart';
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
-  net?: boolean;
+  balance?: boolean;
 }
 
 interface DataItem {
   date: Date;
   income: number;
   expense: number;
-  net: number;
+  balance: number;
 }
 
-type ChartDataItem = Omit<DataItem, 'net'>;
+type ChartDataItem = Omit<DataItem, 'balance'>;
 
-export function CashFlowChart({ className, transactions, net }: Props) {
+export function CashFlowChart({ className, transactions, balance }: Props) {
   const { formatNumber } = useIntl();
 
   const { formatDate } = useDate();
@@ -46,7 +46,7 @@ export function CashFlowChart({ className, transactions, net }: Props) {
             date,
             income: 0,
             expense: 0,
-            net: 0,
+            balance: 0,
           };
           result.push(item);
         }
@@ -56,7 +56,7 @@ export function CashFlowChart({ className, transactions, net }: Props) {
         else {
           item.expense += transaction.amount;
         }
-        item.net += transaction.amount;
+        item.balance += transaction.amount;
         return result;
       }, []),
     [transactions],
@@ -66,14 +66,14 @@ export function CashFlowChart({ className, transactions, net }: Props) {
     () =>
       data.map<ChartDataItem>((item) => {
         let income: number, expense: number;
-        if (net) {
-          if (item.net > 0) {
-            income = item.net;
+        if (balance) {
+          if (item.balance > 0) {
+            income = item.balance;
             expense = 0;
           }
           else {
             income = 0;
-            expense = item.net;
+            expense = item.balance;
           }
         }
         else {
@@ -86,7 +86,7 @@ export function CashFlowChart({ className, transactions, net }: Props) {
           expense,
         };
       }),
-    [net, data],
+    [balance, data],
   );
 
   const chartDomain = useMemo(() => {
@@ -103,12 +103,12 @@ export function CashFlowChart({ className, transactions, net }: Props) {
   const chartActiveIndex = useMemo(() => data.findIndex(item => isThisMonth(item.date)), [data]);
 
   const meanData = useMemo(() => {
-    const { income, expense, net, count } = data.reduce(
+    const { income, expense, balance, count } = data.reduce(
       (result, item) => {
         if (!isThisMonth(item.date)) {
           result.income += item.income;
           result.expense += item.expense;
-          result.net += item.net;
+          result.balance += item.balance;
           result.count++;
         }
         return result;
@@ -116,14 +116,14 @@ export function CashFlowChart({ className, transactions, net }: Props) {
       {
         income: 0,
         expense: 0,
-        net: 0,
+        balance: 0,
         count: 0,
       },
     );
     return {
       income: income / count,
       expense: expense / count,
-      net: net / count,
+      balance: balance / count,
     };
   }, [data]);
 
@@ -160,18 +160,19 @@ export function CashFlowChart({ className, transactions, net }: Props) {
             }}
           />
         ))}
-        {!!net && (
-          <ReferenceLine y={meanData.net} stroke="var(--color-foreground)" strokeDasharray={4}>
+        {!!balance && (
+          <ReferenceLine y={meanData.balance} stroke="var(--color-foreground)" strokeDasharray={4}>
             <Label
               value={
-                (meanData.net > 0 ? '+' : '') + formatNumber(meanData.net, { format: 'currency' })
+                (meanData.balance > 0 ? '+' : '')
+                + formatNumber(meanData.balance, { format: 'currency' })
               }
               position="insideBottomRight"
               fill="var(--color-foreground)"
             />
           </ReferenceLine>
         )}
-        {!net && (
+        {!balance && (
           <ReferenceLine y={meanData.income} stroke="var(--color-foreground)" strokeDasharray={4}>
             <Label
               value={formatNumber(meanData.income, { format: 'currency' })}
@@ -180,7 +181,7 @@ export function CashFlowChart({ className, transactions, net }: Props) {
             />
           </ReferenceLine>
         )}
-        {!net && (
+        {!balance && (
           <ReferenceLine y={meanData.expense} stroke="var(--color-foreground)" strokeDasharray={4}>
             <Label
               value={formatNumber(Math.abs(meanData.expense), { format: 'currency' })}

@@ -66,25 +66,8 @@ export function TransactionList({
     [filteredTransactions],
   );
 
-  const income = useMemo(
-    () =>
-      filteredTransactions.reduce((result, transaction) => {
-        if (transaction.amount > 0) {
-          result += transaction.amount;
-        }
-        return result;
-      }, 0),
-    [filteredTransactions],
-  );
-
-  const expense = useMemo(
-    () =>
-      filteredTransactions.reduce((result, transaction) => {
-        if (transaction.amount < 0) {
-          result += transaction.amount;
-        }
-        return result;
-      }, 0),
+  const balance = useMemo(
+    () => filteredTransactions.reduce((result, transaction) => result + transaction.amount, 0),
     [filteredTransactions],
   );
 
@@ -120,19 +103,15 @@ export function TransactionList({
                   },
                 )}
           </span>
-          <div className="flex gap-2 shrink-0 ml-auto font-bold">
-            {income > 0 && (
-              <span className="text-green-500">
-                +
-                <FormattedNumber value={income} format="currency" />
-              </span>
+          <span
+            className={cn(
+              'ml-auto font-bold whitespace-nowrap',
+              balance > 0 ? 'text-green-500' : 'text-red-500',
             )}
-            {expense < 0 && (
-              <span className="text-red-500">
-                <FormattedNumber value={expense} format="currency" />
-              </span>
-            )}
-          </div>
+          >
+            {balance > 0 && '+'}
+            <FormattedNumber value={balance} format="currency" />
+          </span>
         </div>
       )}
       <div

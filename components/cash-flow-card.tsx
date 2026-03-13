@@ -25,7 +25,7 @@ export function CashFlowCard({ className, transactions, openState }: Props) {
 
   const [open, setOpen] = openState ?? useState(false);
 
-  const [net, setNet] = useState(true);
+  const [balance, setBalance] = useState(true);
 
   const currentData = useMemo(
     () =>
@@ -38,14 +38,14 @@ export function CashFlowCard({ className, transactions, openState }: Props) {
             else {
               result.expense += Math.abs(transaction.amount);
             }
-            result.net += transaction.amount;
+            result.balance += transaction.amount;
           }
           return result;
         },
         {
           income: 0,
           expense: 0,
-          net: 0,
+          balance: 0,
         },
       ),
     [transactions],
@@ -69,11 +69,11 @@ export function CashFlowCard({ className, transactions, openState }: Props) {
           >
             <CardHeader className="flex-1 p-0">
               <CardTitle className="text-2xl font-bold whitespace-nowrap">
-                {net
+                {balance
                   ? (
-                      <span className={currentData.net > 0 ? 'text-green-500' : 'text-red-500'}>
-                        {currentData.net > 0 && '+'}
-                        <FormattedNumber value={currentData.net} format="currency" />
+                      <span className={currentData.balance > 0 ? 'text-green-500' : 'text-red-500'}>
+                        {currentData.balance > 0 && '+'}
+                        <FormattedNumber value={currentData.balance} format="currency" />
                       </span>
                     )
                   : (
@@ -116,11 +116,11 @@ export function CashFlowCard({ className, transactions, openState }: Props) {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <CardContent className="flex flex-col gap-2 p-0">
-            <CashFlowChart transactions={chartTransactions} net={net} />
+            <CashFlowChart transactions={chartTransactions} balance={balance} />
             <Field orientation="horizontal">
-              <Switch id="cash-flow-card-net" checked={net} onCheckedChange={setNet} />
-              <FieldLabel htmlFor="cash-flow-card-net">
-                {$t({ id: 'cash-flow.card.net' })}
+              <Switch id="cash-flow-card-balance" checked={balance} onCheckedChange={setBalance} />
+              <FieldLabel htmlFor="cash-flow-card-balance">
+                {$t({ id: 'cash-flow.card.balance' })}
               </FieldLabel>
             </Field>
           </CardContent>

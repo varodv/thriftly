@@ -90,8 +90,7 @@ export function TransactionListItem({
             transaction.amount > 0 ? 'text-green-500' : 'text-red-500',
           )}
         >
-          {transaction.amount > 0 && '+'}
-          <FormattedNumber value={transaction.amount} format="currency" />
+          <FormattedNumber value={Math.abs(transaction.amount)} format="currency" />
         </span>
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger asChild>

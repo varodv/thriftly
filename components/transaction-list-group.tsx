@@ -54,13 +54,12 @@ export function TransactionListGroup({
         <div className="flex gap-2 shrink-0 ml-auto font-bold text-sm">
           {income > 0 && (
             <span className="text-green-500">
-              +
               <FormattedNumber value={income} format="currency" />
             </span>
           )}
           {expense < 0 && (
             <span className="text-red-500">
-              <FormattedNumber value={expense} format="currency" />
+              <FormattedNumber value={Math.abs(expense)} format="currency" />
             </span>
           )}
         </div>
