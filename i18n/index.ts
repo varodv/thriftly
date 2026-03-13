@@ -69,4 +69,6 @@ export const MESSAGES = {
   'tags.input.options.other': 'Other',
 
   'icon.input.options.empty': 'No icons found',
+
+  'cash-flow.card.net': 'Net balance',
 };

@@ -5,7 +5,7 @@ import type { Transaction } from '@/hooks/use-transaction';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
-import { BalanceCard } from '@/components/balance-card';
+import { CashFlowCard } from '@/components/cash-flow-card';
 import { CategoryDialog } from '@/components/category-dialog';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
@@ -29,7 +29,7 @@ export default function Page() {
 
   const [selectedCategory, setSelectedCategory] = useState<Category>();
 
-  const [balanceCardOpen, setBalanceCardOpen] = useState(false);
+  const [cardOpen, setCardOpen] = useState(false);
 
   useEffect(() => {
     if (!transactionDialogOpen) {
@@ -86,10 +86,10 @@ export default function Page() {
         <div className="flex items-center justify-between mx-4">
           <h1 className="mx-auto text-3xl font-bold">thriftly</h1>
         </div>
-        <BalanceCard
+        <CashFlowCard
           className="mx-4"
           transactions={transactions}
-          openState={[balanceCardOpen, setBalanceCardOpen]}
+          openState={[cardOpen, setCardOpen]}
         />
         <TransactionList
           className="flex-1 px-4"
@@ -98,7 +98,7 @@ export default function Page() {
           onUpdate={setSelectedTransaction}
           onDelete={onTransactionDelete}
           onCategoryUpdate={setSelectedCategory}
-          onScroll={() => balanceCardOpen && setBalanceCardOpen(false)}
+          onScroll={() => cardOpen && setCardOpen(false)}
         />
         <TransactionDialog
           open={transactionDialogOpen}
