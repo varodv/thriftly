@@ -3,7 +3,16 @@ import type { Transaction } from '@/hooks/use-transaction';
 import { isThisMonth, startOfMonth } from 'date-fns';
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Bar, ComposedChart, Label, Rectangle, ReferenceLine, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  CartesianGrid,
+  ComposedChart,
+  Label,
+  Rectangle,
+  ReferenceLine,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { useDate } from '@/hooks/use-date';
 import { ChartContainer } from './ui/chart';
 
@@ -130,9 +139,7 @@ export function CashFlowChart({ className, transactions, balance }: Props) {
   return (
     <ChartContainer className={className} config={chartConfig}>
       <ComposedChart accessibilityLayer data={chartData} stackOffset="sign" margin={{ top: 16 }}>
-        <ReferenceLine y={0} />
-        <ReferenceLine y={chartDomain[0]} />
-        <ReferenceLine y={chartDomain[1]} />
+        <CartesianGrid vertical={false} />
         <XAxis
           dataKey="date"
           axisLine={false}
