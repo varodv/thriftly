@@ -71,4 +71,6 @@ export const MESSAGES = {
   'icon.input.options.empty': 'No icons found',
 
   'cash-flow.card.balance': 'Net balance',
+
+  'categories.card.title': '{count} transactions',
 };

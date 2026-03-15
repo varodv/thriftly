@@ -6,9 +6,11 @@ import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 import { CashFlowCard } from '@/components/cash-flow-card';
+import { CategoriesCard } from '@/components/categories-card';
 import { CategoryDialog } from '@/components/category-dialog';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Toaster } from '@/components/ui/sonner';
 import { useCategory } from '@/hooks/use-category';
 import { useTransaction } from '@/hooks/use-transaction';
@@ -86,11 +88,24 @@ export default function Page() {
         <div className="flex items-center justify-between mx-4">
           <h1 className="mx-auto text-3xl font-bold">thriftly</h1>
         </div>
-        <CashFlowCard
-          className="mx-4"
-          transactions={transactions}
-          openState={[cardOpen, setCardOpen]}
-        />
+        <Carousel>
+          <CarouselContent>
+            <CarouselItem>
+              <CashFlowCard
+                className="mx-4"
+                transactions={transactions}
+                openState={[cardOpen, setCardOpen]}
+              />
+            </CarouselItem>
+            <CarouselItem>
+              <CategoriesCard
+                className="mx-4"
+                transactions={transactions}
+                openState={[cardOpen, setCardOpen]}
+              />
+            </CarouselItem>
+          </CarouselContent>
+        </Carousel>
         <TransactionList
           className="flex-1 px-4"
           transactions={transactions}

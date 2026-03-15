@@ -58,8 +58,8 @@ export function CashFlowCard({ className, transactions, openState }: Props) {
   }, [transactions]);
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <Card className={cn('gap-3 p-3', className)}>
+    <Collapsible className="h-full" open={open} onOpenChange={setOpen}>
+      <Card className={cn('gap-3 h-full p-3', className)}>
         <CollapsibleTrigger asChild>
           <div
             className={cn(
@@ -114,7 +114,7 @@ export function CashFlowCard({ className, transactions, openState }: Props) {
             )}
           </div>
         </CollapsibleTrigger>
-        <CollapsibleContent>
+        <CollapsibleContent className="my-auto">
           <CardContent className="flex flex-col gap-2 p-0">
             <CashFlowChart transactions={chartTransactions} balance={balance} />
             <Field orientation="horizontal">
