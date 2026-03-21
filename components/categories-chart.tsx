@@ -10,6 +10,7 @@ import { ChartContainer } from './ui/chart';
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
+  maxItems?: number;
 }
 
 interface DataItem extends Category {
@@ -17,37 +18,55 @@ interface DataItem extends Category {
   count: number;
 }
 
-export function CategoriesChart({ className, transactions }: Props) {
-  const { formatNumber } = useIntl();
+export function CategoriesChart({ className, transactions, maxItems }: Props) {
+  const { $t, formatNumber } = useIntl();
 
   const { categories } = useCategory();
 
-  const chartData = useMemo(
-    () =>
-      transactions
-        .reduce<Array<DataItem>>((result, transaction) => {
-          let item = result.find(currentItem => currentItem.id === transaction.category);
-          if (!item) {
-            const category = categories.find(
-              currentCategory => currentCategory.id === transaction.category,
-            );
-            if (!category) {
-              return result;
-            }
-            item = {
-              ...category,
-              amount: 0,
-              count: 0,
-            };
-            result.push(item);
+  const chartData = useMemo(() => {
+    const result = transactions
+      .reduce<Array<DataItem>>((result, transaction) => {
+        let item = result.find(currentItem => currentItem.id === transaction.category);
+        if (!item) {
+          const category = categories.find(
+            currentCategory => currentCategory.id === transaction.category,
+          );
+          if (!category) {
+            return result;
           }
-          item.amount += Math.abs(transaction.amount);
-          item.count++;
-          return result;
-        }, [])
-        .sort((itemA, itemB) => itemA.name.localeCompare(itemB.name)),
-    [transactions],
-  );
+          item = {
+            ...category,
+            amount: 0,
+            count: 0,
+          };
+          result.push(item);
+        }
+        item.amount += Math.abs(transaction.amount);
+        item.count++;
+        return result;
+      }, [])
+      .sort((itemA, itemB) => itemB.amount - itemA.amount);
+    if (maxItems && result.length > maxItems) {
+      const otherItems = result.slice(maxItems - 1);
+      result.splice(maxItems - 1, result.length - maxItems + 1, {
+        id: 'other',
+        name: $t({ id: 'categories.chart.other' }),
+        icon: 'EllipsisVertical',
+        color: 'neutral',
+        ...otherItems.reduce(
+          (currentResult, item) => ({
+            amount: currentResult.amount + item.amount,
+            count: currentResult.count + item.count,
+          }),
+          {
+            amount: 0,
+            count: 0,
+          },
+        ),
+      });
+    }
+    return result;
+  }, [transactions, maxItems]);
 
   return (
     <ChartContainer className={className} config={{}}>

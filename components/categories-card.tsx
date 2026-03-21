@@ -70,7 +70,7 @@ export function CategoriesCard({ className, transactions, openState }: Props) {
         </CollapsibleTrigger>
         <CollapsibleContent className="my-auto">
           <CardContent className="p-0">
-            <CategoriesChart transactions={currentTransactions} />
+            <CategoriesChart transactions={currentTransactions} maxItems={6} />
           </CardContent>
         </CollapsibleContent>
       </Card>
