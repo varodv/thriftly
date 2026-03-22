@@ -73,6 +73,7 @@ export const MESSAGES = {
   'cash-flow.card.balance': 'Net balance',
 
   'categories.card.title': '{count} transactions',
+  'categories.card.compare': 'Compare with previous month',
 
   'categories.chart.other': 'Other',
 };
