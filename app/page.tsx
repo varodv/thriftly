@@ -136,7 +136,7 @@ export default function Page() {
             <TransactionCarousel
               className="flex-1"
               transactions={transactions}
-              renderItem={CategoryList}
+              renderItem={props => <CategoryList {...props} onUpdate={setSelectedCategory} />}
             />
           </TabsContent>
         </Tabs>

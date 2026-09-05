@@ -1,3 +1,4 @@
+import type { Category } from '@/hooks/use-category';
 import type { Transaction } from '@/hooks/use-transaction';
 import { useMemo } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -8,9 +9,10 @@ import { Icon } from './icon';
 interface Props {
   className?: string;
   transactions: Array<Transaction>;
+  onUpdate?: (category: Category) => void;
 }
 
-export function CategoryList({ className, transactions }: Props) {
+export function CategoryList({ className, transactions, onUpdate }: Props) {
   const { categories } = useCategory();
 
   const items = useMemo(
@@ -44,7 +46,14 @@ export function CategoryList({ className, transactions }: Props) {
       )}
     >
       {items.map(item => (
-        <div key={item.id} className="flex items-center gap-3 p-3 border rounded-lg bg-accent/50">
+        <div
+          key={item.id}
+          className={cn(
+            'flex items-center gap-3 p-3 border rounded-lg',
+            'bg-accent/50 hover:bg-accent/75 transition-colors cursor-pointer',
+          )}
+          onClick={() => onUpdate?.(item)}
+        >
           <div className={cn('p-2 rounded-md text-white shadow-sm', `bg-${item.color}-500`)}>
             <Icon className="size-5" name={item.icon} />
           </div>
