@@ -2,16 +2,20 @@
 
 import type { Category } from '@/hooks/use-category';
 import type { Transaction } from '@/hooks/use-transaction';
+import { ArrowLeftRightIcon, ChartNoAxesColumnIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 import { CashFlowCard } from '@/components/cash-flow-card';
 import { CategoriesCard } from '@/components/categories-card';
 import { CategoryDialog } from '@/components/category-dialog';
+import { CategoryList } from '@/components/category-list';
+import { TransactionCarousel } from '@/components/transaction-carousel';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Toaster } from '@/components/ui/sonner';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCategory } from '@/hooks/use-category';
 import { useTransaction } from '@/hooks/use-transaction';
 
@@ -106,15 +110,36 @@ export default function Page() {
             </CarouselItem>
           </CarouselContent>
         </Carousel>
-        <TransactionList
-          className="flex-1 px-4"
-          transactions={transactions}
-          onCreate={() => setTransactionDialogOpen(true)}
-          onUpdate={setSelectedTransaction}
-          onDelete={onTransactionDelete}
-          onCategoryUpdate={setSelectedCategory}
-          onScroll={() => cardOpen && setCardOpen(false)}
-        />
+        <Tabs className="flex-1 overflow-hidden px-4" defaultValue="transactions">
+          <TabsList className="w-full">
+            <TabsTrigger value="transactions">
+              <ArrowLeftRightIcon />
+              {$t({ id: 'transactions' })}
+            </TabsTrigger>
+            <TabsTrigger value="categories">
+              <ChartNoAxesColumnIcon className="rotate-90" />
+              {$t({ id: 'categories' })}
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent className="flex flex-col flex-1 overflow-hidden" value="transactions">
+            <TransactionList
+              className="flex-1"
+              transactions={transactions}
+              onCreate={() => setTransactionDialogOpen(true)}
+              onUpdate={setSelectedTransaction}
+              onDelete={onTransactionDelete}
+              onCategoryUpdate={setSelectedCategory}
+              onScroll={() => cardOpen && setCardOpen(false)}
+            />
+          </TabsContent>
+          <TabsContent className="flex flex-col flex-1 overflow-hidden" value="categories">
+            <TransactionCarousel
+              className="flex-1"
+              transactions={transactions}
+              renderItem={CategoryList}
+            />
+          </TabsContent>
+        </Tabs>
         <TransactionDialog
           className="max-w-xl mx-auto"
           open={transactionDialogOpen}

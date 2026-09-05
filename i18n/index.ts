@@ -3,6 +3,9 @@ export const MESSAGES = {
   'date.yesterday': 'yesterday',
   'date.tomorrow': 'tomorrow',
 
+  'transactions': 'Transactions',
+  'categories': 'Categories',
+
   'transaction.list.count': '{count, plural, one {# transaction} other {# transactions}}',
   'transaction.list.count.filtered': '{filtered} of {count} transactions',
   'transaction.list.filter.period.all': 'All time',
