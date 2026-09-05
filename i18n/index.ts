@@ -3,7 +3,7 @@ export const MESSAGES = {
   'date.yesterday': 'yesterday',
   'date.tomorrow': 'tomorrow',
 
-  'transaction.list.count': '{count} transactions',
+  'transaction.list.count': '{count, plural, one {# transaction} other {# transactions}}',
   'transaction.list.count.filtered': '{filtered} of {count} transactions',
   'transaction.list.filter.period.all': 'All time',
   'transaction.list.filter.period.week': 'This week',
