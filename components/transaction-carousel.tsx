@@ -78,7 +78,7 @@ export function TransactionCarousel({ className, transactions, renderItem }: Pro
   }, [api]);
 
   return (
-    <div className={cn(className, 'flex flex-col gap-2')}>
+    <div className={cn(className, 'flex flex-col gap-2 overflow-hidden min-h-0')}>
       <div className="flex items-center justify-between gap-4">
         <Button
           variant="outline"
@@ -116,14 +116,19 @@ export function TransactionCarousel({ className, transactions, renderItem }: Pro
         </Button>
       </div>
       <Carousel
+        className={cn(
+          'flex flex-col flex-1 min-h-0',
+          '[&>[data-slot=carousel-content]]:flex-1',
+          '[&>[data-slot=carousel-content]]:min-h-0',
+        )}
         opts={{
           startIndex: items.findIndex(item => isThisMonth(item.date)),
         }}
         setApi={setApi}
       >
-        <CarouselContent>
+        <CarouselContent className="h-full">
           {items.map(item => (
-            <CarouselItem key={item.date.toISOString()}>
+            <CarouselItem key={item.date.toISOString()} className="h-full">
               {renderItem({ transactions: item.transactions })}
             </CarouselItem>
           ))}

@@ -37,7 +37,12 @@ export function CategoryList({ className, transactions }: Props) {
   );
 
   return (
-    <div className={cn(className, 'flex flex-col gap-3 overflow-y-auto py-3 px-4 -mx-4')}>
+    <div
+      className={cn(
+        className,
+        'flex flex-col gap-3 overflow-y-auto h-full min-h-0 py-3 px-4 -mx-4',
+      )}
+    >
       {items.map(item => (
         <div key={item.id} className="flex items-center gap-3 p-3 border rounded-lg bg-accent/50">
           <div className={cn('p-2 rounded-md text-white shadow-sm', `bg-${item.color}-500`)}>
