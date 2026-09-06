@@ -74,9 +74,4 @@ export const MESSAGES = {
   'icon.input.options.empty': 'No icons found',
 
   'cash-flow.card.balance': 'Net balance',
-
-  'categories.card.title': '{count} transactions',
-  'categories.card.compare': 'Compare with previous month',
-
-  'categories.chart.other': 'Other',
 };

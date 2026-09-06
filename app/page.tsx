@@ -7,13 +7,11 @@ import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 import { CashFlowCard } from '@/components/cash-flow-card';
-import { CategoriesCard } from '@/components/categories-card';
 import { CategoryDialog } from '@/components/category-dialog';
 import { CategoryList } from '@/components/category-list';
 import { TransactionCarousel } from '@/components/transaction-carousel';
 import { TransactionDialog } from '@/components/transaction-dialog';
 import { TransactionList } from '@/components/transaction-list';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Toaster } from '@/components/ui/sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCategory } from '@/hooks/use-category';
@@ -92,24 +90,11 @@ export default function Page() {
         <div className="flex items-center justify-between mx-4">
           <h1 className="mx-auto text-3xl font-bold">thriftly</h1>
         </div>
-        <Carousel>
-          <CarouselContent>
-            <CarouselItem>
-              <CashFlowCard
-                className="mx-4"
-                transactions={transactions}
-                openState={[cardOpen, setCardOpen]}
-              />
-            </CarouselItem>
-            <CarouselItem>
-              <CategoriesCard
-                className="mx-4"
-                transactions={transactions}
-                openState={[cardOpen, setCardOpen]}
-              />
-            </CarouselItem>
-          </CarouselContent>
-        </Carousel>
+        <CashFlowCard
+          className="mx-4"
+          transactions={transactions}
+          openState={[cardOpen, setCardOpen]}
+        />
         <Tabs className="flex-1 overflow-hidden px-4" defaultValue="transactions">
           <TabsList className="w-full">
             <TabsTrigger value="transactions">
