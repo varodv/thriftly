@@ -3,7 +3,10 @@ export const MESSAGES = {
   'date.yesterday': 'yesterday',
   'date.tomorrow': 'tomorrow',
 
-  'transaction.list.count': '{count} transactions',
+  'transactions': 'Transactions',
+  'categories': 'Categories',
+
+  'transaction.list.count': '{count, plural, one {# transaction} other {# transactions}}',
   'transaction.list.count.filtered': '{filtered} of {count} transactions',
   'transaction.list.filter.period.all': 'All time',
   'transaction.list.filter.period.week': 'This week',
@@ -71,9 +74,4 @@ export const MESSAGES = {
   'icon.input.options.empty': 'No icons found',
 
   'cash-flow.card.balance': 'Net balance',
-
-  'categories.card.title': '{count} transactions',
-  'categories.card.compare': 'Compare with previous month',
-
-  'categories.chart.other': 'Other',
 };
